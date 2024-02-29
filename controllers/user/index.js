@@ -1,8 +1,10 @@
 const { ctrlWrapper } = require("../../helpers");
 const getCurrent = require("./getCurrent");
-const updateSubscription = require("./updateSubscription");
+const updateUser = require("./updateUser");
+const updateParams = require("./updateParams");
 
 module.exports = {
   getCurrent: ctrlWrapper(getCurrent),
-  updateSubscription: ctrlWrapper(updateSubscription),
+  updateUser: ctrlWrapper(updateUser),
+  updateParams: ctrlWrapper(updateParams),
 };

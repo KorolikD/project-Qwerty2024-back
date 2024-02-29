@@ -9,7 +9,12 @@ const morgan = require("morgan");
 const cors = require("cors");
 const { errorHandler, urlNotFound } = require("./middlewares");
 
-const { contactsRouter, authRouter } = require("./routes");
+const {
+  productsRouter,
+  authRouter,
+  exercisesRouter,
+  diaryRouter,
+} = require("./routes");
 
 const app = express();
 
@@ -18,7 +23,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/users", authRouter);
-app.use("/api/contacts", contactsRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/exercises", exercisesRouter);
+app.use("/api/diary", diaryRouter);
 
 app.use(urlNotFound);
 app.use(errorHandler);
