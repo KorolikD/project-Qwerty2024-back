@@ -1,4 +1,6 @@
-const contactsRouter = require("./contactsRouter");
+const productsRouter = require("./productsRouter");
 const authRouter = require("./authRouter");
+const exercisesRouter = require("./exercisesRouter");
+const diaryRouter = require("./diaryRouter");
 
-module.exports = { contactsRouter, authRouter };
+module.exports = { productsRouter, authRouter, exercisesRouter, diaryRouter };

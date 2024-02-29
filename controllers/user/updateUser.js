@@ -1,6 +1,6 @@
 const { User } = require("../../models");
 
-const updateSubscription = async (req, res) => {
+const updateUser = async (req, res) => {
   const { _id, email } = req.user;
   const { subscription } = req.body;
 
@@ -9,4 +9,4 @@ const updateSubscription = async (req, res) => {
   res.json({ email, subscription });
 };
 
-module.exports = updateSubscription;
+module.exports = updateUser;

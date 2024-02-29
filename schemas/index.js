@@ -1,8 +1,4 @@
-const {
-  createContactSchema,
-  updateContactSchema,
-  updateStatusContactSchema,
-} = require("./contactsSchemas");
+const { createDiarySchema, updateDiarySchema } = require("./diarySchemas");
 
 const {
   registerSchema,
@@ -11,9 +7,8 @@ const {
 } = require("./authSchemas");
 
 module.exports = {
-  createContactSchema,
-  updateContactSchema,
-  updateStatusContactSchema,
+  createDiarySchema,
+  updateDiarySchema,
   registerSchema,
   loginSchema,
   subscriptionSchema,
