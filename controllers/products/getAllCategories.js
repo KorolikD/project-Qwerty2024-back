@@ -1,8 +1,7 @@
 const productsCategories = require("../../data/");
-const data = require("../../data");
 
 const getAllCategories = async (req, res) => {
-  res.json(data);
+  res.json(productsCategories);
 };
 
 module.exports = getAllCategories;
