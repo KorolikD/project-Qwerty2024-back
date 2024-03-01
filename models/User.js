@@ -1,24 +1,31 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
+
+const Regexps = { EMAIL: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/ };
 
 const userSchema = new Schema(
   {
-    password: {
+    name: {
       type: String,
-      required: [true, "Set password for user"],
+      required: [true, 'Name is required'],
+      minlength: 2,
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: [true, 'Email is required'],
       unique: true,
+      match: Regexps.EMAIL,
     },
-    subscription: {
+    password: {
       type: String,
-      enum: ["starter", "pro", "business"],
-      default: "starter",
+      required: [true, 'Set password for user'],
+      minlength: 6,
     },
+
     token: String,
   },
   { versionKey: false, timestamps: true }
 );
 
-module.exports = model("user", userSchema);
+const User = model('user', userSchema);
+
+module.exports = User;
