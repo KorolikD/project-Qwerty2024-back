@@ -19,7 +19,7 @@ const updateUser = async (req, res) => {
     _id,
     { ...req.body, bmr, dpa: 110 },
     { new: true, runValidators: true }
-  );
+  ).select("-password -createdAt -updatedAt -token ");
 
   res.json({ user });
 };
