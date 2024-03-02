@@ -1,0 +1,627 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "💙💛 PowerPulse",
+    "description": "PowerPulse backend",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json"],
+  "servers": [
+    { "url": "https://project-qwerty2024-back.onrender.com/api" },
+    { "url": "http://localhost:3000/api" }
+  ],
+
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Products",
+      "description": "Products endpoints"
+    },
+    {
+      "name": "Exercises",
+      "description": "Exercises endpoints"
+    },
+    {
+      "name": "Diary",
+      "description": "Diary endpoints"
+    }
+  ],
+
+  "paths": {
+    "/users/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+
+        "parameters": [],
+
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/users/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User log in",
+
+        "parameters": [],
+
+        "requestBody": {
+          "description": "Log in object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/users/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User log out",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/users/current": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get current user info",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/users/params": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/users": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/products/categories": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get products categories",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductsCategoriesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/products": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get recommended products",
+
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "schema": { "type": "string" },
+            "description": "Product's category"
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "schema": { "type": "string" },
+            "description": "Product's name"
+          },
+          {
+            "in": "query",
+            "name": "allowed",
+            "schema": { "type": "boolean" },
+            "description": "Allowed product"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Test Name"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "test@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "example123"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Test Name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "test@gmail.com"
+              }
+            }
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token(23h)",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
+          }
+        },
+        "example": {
+          "user": {
+            "name": "Test Name",
+            "email": "test@gmail.com"
+          },
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
+        }
+      },
+
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "test@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "example123"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token(23h)",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Test Name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "test@gmail.com"
+              }
+            }
+          }
+        },
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE",
+          "user": {
+            "name": "Test Name",
+            "email": "test@gmail.com"
+          }
+        }
+      },
+
+      "LogoutResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Logout success",
+            "example": "Logout success"
+          }
+        },
+        "example": { "message": "Logout success" }
+      },
+
+      "GetCurrentUserResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Test Name"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "test@gmail.com"
+          }
+        },
+        "example": { "name": "Test Name", "email": "test@gmail.com" }
+      },
+
+      "GetProductsCategoriesResponse": {
+        "type": "object",
+        "properties": {
+          "productsCategories": {
+            "type": "array",
+            "items": {
+              "description": "Product categories list",
+              "type": "string"
+            },
+            "otherProperty": {
+              "type": "string"
+            }
+          }
+        },
+        "example": {
+          "productsCategories": [
+            "alcoholic drinks",
+            "berries",
+            "cereals",
+            "dairy",
+            "dried fruits",
+            "eggs",
+            "fish",
+            "flour",
+            "fruits",
+            "meat",
+            "mushrooms",
+            "nuts",
+            "oils and fats",
+            "poppy",
+            "sausage",
+            "seeds",
+            "sesame",
+            "soft drinks",
+            "vegetables and herbs"
+          ]
+        }
+      },
+
+      "GetProductsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "groupBloodNotAllowed": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "boolean",
+                  "description": "Product allowed for group blood",
+                  "example": "true"
+                },
+                "2": {
+                  "type": "boolean",
+                  "description": "Product allowed for group blood",
+                  "example": "true"
+                },
+                "3": {
+                  "type": "boolean",
+                  "description": "Product allowed for group blood",
+                  "example": "false"
+                },
+                "4": {
+                  "type": "boolean",
+                  "description": "Product allowed for group blood",
+                  "example": "false"
+                }
+              }
+            },
+            "_id": {
+              "type": "string",
+              "description": "Product id",
+              "example": "5d51694902b2373622ff5b72"
+            },
+            "weight": {
+              "type": "integer",
+              "description": "Product weight",
+              "example": 100
+            },
+            "calories": {
+              "type": "integer",
+              "description": "Product calories",
+              "example": 90
+            },
+            "category": {
+              "type": "string",
+              "description": "Product category",
+              "example": "fish"
+            },
+            "title": {
+              "type": "string",
+              "description": "Product title",
+              "example": "Lobster"
+            }
+          }
+        },
+        "example": [
+          {
+            "groupBloodNotAllowed": {
+              "1": false,
+              "2": false,
+              "3": false,
+              "4": false
+            },
+            "_id": "5d51694902b2373622ff5b72",
+            "weight": 100,
+            "calories": 90,
+            "category": "fish",
+            "title": "Lobster"
+          },
+          {
+            "groupBloodNotAllowed": {
+              "1": false,
+              "2": false,
+              "3": false,
+              "4": false
+            },
+            "_id": "5d51694902b2373622ff5b64",
+            "weight": 100,
+            "calories": 88,
+            "category": "fish",
+            "title": "Lobster (neck meat)"
+          }
+        ]
+      }
+    },
+
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
