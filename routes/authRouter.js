@@ -1,11 +1,7 @@
 const { registration, login, logout } = require("../controllers/auth");
-const { getCurrent, updateUser, updateParams } = require("../controllers/user");
-const { validateBody, authenticate } = require("../middlewares");
-const {
-  registerSchema,
-  loginSchema,
-  subscriptionSchema,
-} = require("../schemas");
+const { getCurrent, updateAvatar, updateUser } = require("../controllers/user");
+const { validateBody, authenticate, upload } = require("../middlewares");
+const { registerSchema, loginSchema, updateSchema } = require("../schemas");
 
 const authRouter = require("express").Router();
 
@@ -20,14 +16,19 @@ authRouter.post("/logout", authenticate, logout);
 authRouter.get("/current", authenticate, getCurrent);
 
 // написати логіку відносно ТЗ
-authRouter.patch("/params", authenticate, updateParams);
+authRouter.patch(
+  "/params",
+  authenticate,
+  validateBody(updateSchema),
+  updateUser
+);
 
 // змінити логіку відносно ТЗ
 authRouter.patch(
-  "/",
+  "/avatar",
   authenticate,
-  validateBody(subscriptionSchema),
-  updateUser
+  upload.single("avatar"),
+  updateAvatar
 );
 
 module.exports = authRouter;
