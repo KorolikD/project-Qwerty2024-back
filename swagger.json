@@ -69,8 +69,16 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
           "409": {
             "description": "Provided email already exists",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
             "content": {}
           }
         }
@@ -110,8 +118,16 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Email or password is wrong",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
             "content": {}
           }
         }
@@ -137,12 +153,16 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request (invalid request body)",
+          "401": {
+            "description": "Unauthorized",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
             "content": {}
           }
         }
@@ -168,12 +188,16 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request (invalid request body)",
+          "401": {
+            "description": "Unauthorized",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
             "content": {}
           }
         }
@@ -183,29 +207,29 @@
     "/users/params": {
       "patch": {
         "tags": ["Auth"],
-        "summary": "User registration",
+        "summary": "Update user params",
 
         "parameters": [],
         "security": [{ "Bearer": [] }],
 
         "requestBody": {
-          "description": "Registration's object",
+          "description": "Params object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                "$ref": "#/components/schemas/UpdateUserRequest"
               }
             }
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "$ref": "#/components/schemas/UpdateUserResponse"
                 }
               }
             }
@@ -214,40 +238,47 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
           "409": {
             "description": "Provided email already exists",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
             "content": {}
           }
         }
       }
     },
 
-    "/users": {
+    "/users/avatar": {
       "patch": {
         "tags": ["Auth"],
-        "summary": "User registration",
+        "summary": "Update user avatar",
 
         "parameters": [],
         "security": [{ "Bearer": [] }],
 
         "requestBody": {
-          "description": "Registration's object",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                "$ref": "#/components/schemas/UpdateAvatarRequest"
               }
             }
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "$ref": "#/components/schemas/UpdateAvatarResponse"
                 }
               }
             }
@@ -256,8 +287,16 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
             "content": {}
           }
         }
@@ -322,6 +361,12 @@
             "name": "allowed",
             "schema": { "type": "boolean" },
             "description": "Allowed product"
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "schema": { "type": "string" },
+            "description": "Product's name"
           }
         ],
         "security": [{ "Bearer": [] }],
@@ -379,7 +424,6 @@
       },
       "RegistrationResponse": {
         "type": "object",
-
         "properties": {
           "user": {
             "type": "object",
@@ -410,7 +454,7 @@
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
         }
       },
-
+      "-----------------": "-------------------------------------",
       "LoginRequest": {
         "type": "object",
         "required": ["email", "password"],
@@ -438,6 +482,11 @@
           "user": {
             "type": "object",
             "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e3d87bc8a84879e6a6f8e0"
+              },
               "name": {
                 "type": "string",
                 "description": "User's name",
@@ -447,19 +496,86 @@
                 "type": "string",
                 "description": "User's email",
                 "example": "test@gmail.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatar url",
+                "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
+              },
+              "height": {
+                "type": "integer",
+                "description": "User's height",
+                "example": 170
+              },
+              "currentWeight": {
+                "type": "integer",
+                "description": "User's weight",
+                "example": 80
+              },
+              "desiredWeight": {
+                "type": "integer",
+                "description": "User's desired weight",
+                "example": 70
+              },
+              "birthday": {
+                "type": "string",
+                "description": "User's birthday",
+                "example": "1995-05-08T21:00:00.000Z"
+              },
+              "blood": {
+                "type": "integer",
+                "description": "User's blood",
+                "example": 4
+              },
+              "sex": {
+                "type": "string",
+                "description": "User's sex",
+                "example": "male"
+              },
+              "levelActivity": {
+                "type": "integer",
+                "description": "User's level activity",
+                "example": 5
+              },
+              "bmr": {
+                "type": "integer",
+                "description": "User's daily calorie intake",
+                "example": 3282
+              },
+              "dpa": {
+                "type": "integer",
+                "description": "User's daily physical activity",
+                "example": 110
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "User's created date",
+                "example": "2024-03-03T01:55:07.361+00:00"
               }
             }
           }
         },
         "example": {
-          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTNkODdiYzhhODQ4NzllNmE2ZjhlMCIsImlhdCI6MTcwOTQzMjI5OSwiZXhwIjoxNzA5NTE1MDk5fQ.bvEU2L1J2FA3__QFTnJfZzrUBIYWXwUTwZH7FSDerfE",
           "user": {
+            "_id": "65e3d87bc8a84879e6a6f8e0",
             "name": "Test Name",
-            "email": "test@gmail.com"
+            "email": "test@gmail.com",
+            "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
+            "height": 170,
+            "currentWeight": 80,
+            "desiredWeight": 70,
+            "birthday": "1995-05-08T21:00:00.000Z",
+            "blood": 4,
+            "sex": "male",
+            "levelActivity": 5,
+            "bmr": 3282,
+            "dpa": 110,
+            "createdAt": "2024-03-03T01:55:07.361+00:00"
           }
         }
       },
-
+      "-------------------": "-------------------------------------",
       "LogoutResponse": {
         "type": "object",
         "properties": {
@@ -471,9 +587,125 @@
         },
         "example": { "message": "Logout success" }
       },
-
+      "------------------": "-------------------------------------",
       "GetCurrentUserResponse": {
         "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token(23h)",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e3d87bc8a84879e6a6f8e0"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Test Name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "test@gmail.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatar url",
+                "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
+              },
+              "height": {
+                "type": "integer",
+                "description": "User's height",
+                "example": 170
+              },
+              "currentWeight": {
+                "type": "integer",
+                "description": "User's weight",
+                "example": 80
+              },
+              "desiredWeight": {
+                "type": "integer",
+                "description": "User's desired weight",
+                "example": 70
+              },
+              "birthday": {
+                "type": "string",
+                "description": "User's birthday",
+                "example": "1995-05-08T21:00:00.000Z"
+              },
+              "blood": {
+                "type": "integer",
+                "description": "User's blood",
+                "example": 4
+              },
+              "sex": {
+                "type": "string",
+                "description": "User's sex",
+                "example": "male"
+              },
+              "levelActivity": {
+                "type": "integer",
+                "description": "User's level activity",
+                "example": 5
+              },
+              "bmr": {
+                "type": "integer",
+                "description": "User's daily calorie intake",
+                "example": 3282
+              },
+              "dpa": {
+                "type": "integer",
+                "description": "User's daily physical activity",
+                "example": 110
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "User's created date",
+                "example": "2024-03-03T01:55:07.361+00:00"
+              }
+            }
+          }
+        },
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTNkODdiYzhhODQ4NzllNmE2ZjhlMCIsImlhdCI6MTcwOTQzMjI5OSwiZXhwIjoxNzA5NTE1MDk5fQ.bvEU2L1J2FA3__QFTnJfZzrUBIYWXwUTwZH7FSDerfE",
+          "user": {
+            "_id": "65e3d87bc8a84879e6a6f8e0",
+            "name": "Test Name",
+            "email": "test@gmail.com",
+            "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
+            "height": 170,
+            "currentWeight": 80,
+            "desiredWeight": 70,
+            "birthday": "1995-05-08T21:00:00.000Z",
+            "blood": 4,
+            "sex": "male",
+            "levelActivity": 5,
+            "bmr": 3282,
+            "dpa": 110,
+            "createdAt": "2024-03-03T01:55:07.361+00:00"
+          }
+        }
+      },
+      "----------------------": "-------------------------------------",
+      "UpdateUserRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "height",
+          "currentWeight",
+          "desiredWeight",
+          "birthday",
+          "blood",
+          "sex",
+          "levelActivity"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -484,11 +716,180 @@
             "type": "string",
             "description": "User's email",
             "example": "test@gmail.com"
+          },
+          "height": {
+            "type": "integer",
+            "description": "User's height",
+            "example": 170
+          },
+          "currentWeight": {
+            "type": "integer",
+            "description": "User's weight",
+            "example": 80
+          },
+          "desiredWeight": {
+            "type": "integer",
+            "description": "User's desired weight",
+            "example": 70
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "1995-05-08T21:00:00.000Z"
+          },
+          "blood": {
+            "type": "integer",
+            "description": "User's blood",
+            "example": 4
+          },
+          "sex": {
+            "type": "string",
+            "description": "User's sex",
+            "example": "male"
+          },
+          "levelActivity": {
+            "type": "integer",
+            "description": "User's level activity",
+            "example": 5
           }
         },
-        "example": { "name": "Test Name", "email": "test@gmail.com" }
-      },
 
+        "example": {
+          "name": "Test Name",
+          "email": "test@gmail.com",
+          "height": 170,
+          "currentWeight": 80,
+          "desiredWeight": 70,
+          "birthday": "05-09-1995",
+          "blood": 4,
+          "sex": "male",
+          "levelActivity": 5
+        }
+      },
+      "UpdateUserResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e3d87bc8a84879e6a6f8e0"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Test Name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "test@gmail.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatar url",
+                "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
+              },
+              "height": {
+                "type": "integer",
+                "description": "User's height",
+                "example": 170
+              },
+              "currentWeight": {
+                "type": "integer",
+                "description": "User's weight",
+                "example": 80
+              },
+              "desiredWeight": {
+                "type": "integer",
+                "description": "User's desired weight",
+                "example": 70
+              },
+              "birthday": {
+                "type": "string",
+                "description": "User's birthday",
+                "example": "1995-05-08T21:00:00.000Z"
+              },
+              "blood": {
+                "type": "integer",
+                "description": "User's blood",
+                "example": 4
+              },
+              "sex": {
+                "type": "string",
+                "description": "User's sex",
+                "example": "male"
+              },
+              "levelActivity": {
+                "type": "integer",
+                "description": "User's level activity",
+                "example": 5
+              },
+              "bmr": {
+                "type": "integer",
+                "description": "User's daily calorie intake",
+                "example": 3282
+              },
+              "dpa": {
+                "type": "integer",
+                "description": "User's daily physical activity",
+                "example": 110
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "User's created date",
+                "example": "2024-03-03T01:55:07.361+00:00"
+              }
+            }
+          }
+        },
+
+        "example": {
+          "user": {
+            "_id": "65e3d87bc8a84879e6a6f8e0",
+            "name": "Test Name",
+            "email": "test@gmail.com",
+            "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
+            "height": 170,
+            "currentWeight": 80,
+            "desiredWeight": 70,
+            "birthday": "1995-05-08T21:00:00.000Z",
+            "blood": 4,
+            "sex": "male",
+            "levelActivity": 5,
+            "bmr": 3282,
+            "dpa": 110,
+            "createdAt": "2024-03-03T01:55:07.361+00:00"
+          }
+        }
+      },
+      "--------------------": "-------------------------------------",
+      "UpdateAvatarRequest": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "description": "Picture in JPEG or PNG format"
+          }
+        }
+      },
+      "UpdateAvatarResponse": {
+        "type": "object",
+        "properties": {
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar url",
+            "example": "https://res.cloudinary.com/powerpulse/image/upload/v1709475451/avatars/3BJZYEerC4RAWtgvaLICG.jpg.jpg"
+          }
+        },
+        "example": {
+          "avatarURL": "https://res.cloudinary.com/powerpulse/image/upload/v1709475451/avatars/3BJZYEerC4RAWtgvaLICG.jpg.jpg"
+        }
+      },
+      "---------------------": "-------------------------------------",
       "GetProductsCategoriesResponse": {
         "type": "object",
         "properties": {
@@ -527,7 +928,7 @@
           ]
         }
       },
-
+      "-----------------------": "-------------------------------------",
       "GetProductsResponse": {
         "type": "array",
         "items": {

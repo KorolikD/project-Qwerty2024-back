@@ -37,3 +37,14 @@ app.use(urlNotFound);
 app.use(errorHandler);
 
 module.exports = app;
+
+//* "/users/register";
+//* "/users/login";
+//* "/users/logout";
+//* "/users/current";
+//* "/users/params";
+// * "/users/avatar"
+// TODO "/products/categories"
+// "/products"
+// "/exercises"
+// "/exercises/param"
