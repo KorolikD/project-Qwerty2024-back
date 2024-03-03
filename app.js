@@ -14,6 +14,7 @@ const {
   authRouter,
   exercisesRouter,
   diaryRouter,
+  statisticsRouter,
 } = require("./routes");
 
 const app = express();
@@ -26,6 +27,7 @@ app.use("/api/users", authRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/exercises", exercisesRouter);
 app.use("/api/diary", diaryRouter);
+app.use("/api/statistics", statisticsRouter);
 
 app.use(urlNotFound);
 app.use(errorHandler);
