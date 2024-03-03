@@ -1,6 +1,8 @@
 const { ctrlWrapper } = require("../../helpers");
-const getVideosQuantity = require("./getVideosQuantity")
+const getUsersQuantity = require("./getUsersQuantity");
+const getVideosQuantity = require("./getVideosQuantity");
 
 module.exports = {
-    getVideosQuantity: ctrlWrapper(getVideosQuantity),
+  getVideosQuantity: ctrlWrapper(getVideosQuantity),
+  getUsersQuantity: ctrlWrapper(getUsersQuantity),
 };
