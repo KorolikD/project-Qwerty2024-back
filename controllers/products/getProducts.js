@@ -1,9 +1,10 @@
+const { HttpError } = require("../../helpers");
 const Product = require("../../models/Product");
 
 const getProducts = async (req, res) => {
   const { blood } = req.user;
 
-  const { category, title, allowed } = req.query;
+  const { category, title, allowed, pageNumber, pageSize } = req.query;
 
   const query = {};
   category && (query.category = category);
@@ -11,9 +12,14 @@ const getProducts = async (req, res) => {
   allowed &&
     (query[`groupBloodNotAllowed.${blood}`] = allowed.toLowerCase() === "true");
 
-  const productsList = await Product.find(query);
+  const result = await Product.paginate(query, {
+    page: pageNumber || 1,
+    limit: pageSize || 30,
+  });
 
-  res.json(productsList);
+  const { docs, totalDocs, limit, page, totalPages } = result;
+
+  res.json({ products: docs, totalDocs, limit, page, totalPages });
 };
 
 module.exports = getProducts;

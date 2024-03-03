@@ -2,15 +2,20 @@ const { HttpError } = require("../../helpers");
 const Exercise = require("../../models/Exercise");
 
 const getExercisesByParameter = async (req, res) => {
-  const { key, value } = req.query;
+  const { key, value, pageNumber, pageSize } = req.query;
 
   if (!key || !value) {
     throw HttpError(400, "Provide parameters");
   }
 
-  const exercisesList = await Exercise.find({ [key]: value });
+  const result = await Exercise.paginate(
+    { [key]: value },
+    { page: pageNumber || 1, limit: pageSize || 30 }
+  );
 
-  res.json(exercisesList);
+  const { docs, totalDocs, limit, page, totalPages } = result;
+
+  res.json({ exercises: docs, totalDocs, limit, page, totalPages });
 };
 
 module.exports = getExercisesByParameter;
