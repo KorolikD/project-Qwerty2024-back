@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const exerciseSchema = new Schema(
   {
@@ -33,6 +34,8 @@ const exerciseSchema = new Schema(
   },
   { versionKey: false, timestamps: true }
 );
+
+exerciseSchema.plugin(mongoosePaginate);
 
 const Exercise = model("exercise", exerciseSchema);
 
