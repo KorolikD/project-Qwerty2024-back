@@ -14,6 +14,7 @@ const {
   authRouter,
   exercisesRouter,
   diaryRouter,
+  statisticsRouter,
 } = require("./routes");
 
 const swaggerUi = require("swagger-ui-express");
@@ -29,6 +30,7 @@ app.use("/api/users", authRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/exercises", exercisesRouter);
 app.use("/api/diary", diaryRouter);
+app.use("/api/statistics", statisticsRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(urlNotFound);
