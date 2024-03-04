@@ -17,6 +17,9 @@ const {
   statisticsRouter,
 } = require("./routes");
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+
 const app = express();
 
 app.use(morgan("tiny"));
@@ -28,8 +31,20 @@ app.use("/api/products", productsRouter);
 app.use("/api/exercises", exercisesRouter);
 app.use("/api/diary", diaryRouter);
 app.use("/api/statistics", statisticsRouter);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(urlNotFound);
 app.use(errorHandler);
 
 module.exports = app;
+
+//* "/users/register";
+//* "/users/login";
+//* "/users/logout";
+//* "/users/current";
+//* "/users/params";
+// * "/users/avatar"
+// * "/products/categories"
+// * "/products"
+// * "/exercises"
+// * "/exercises/param"

@@ -1,0 +1,1361 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "💙💛 PowerPulse",
+    "description": "PowerPulse backend",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json"],
+  "servers": [
+    { "url": "https://project-qwerty2024-back.onrender.com/api" },
+    { "url": "http://localhost:3000/api" }
+  ],
+
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Products",
+      "description": "Products endpoints"
+    },
+    {
+      "name": "Exercises",
+      "description": "Exercises endpoints"
+    },
+    {
+      "name": "Diary",
+      "description": "Diary endpoints"
+    }
+  ],
+
+  "paths": {
+    "/users/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+
+        "parameters": [],
+
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/users/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User log in",
+
+        "parameters": [],
+
+        "requestBody": {
+          "description": "Log in object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Email or password is wrong",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/users/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User log out",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/users/current": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get current user info",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/users/params": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "Update user params",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Params object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/users/avatar": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "Update user avatar",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAvatarRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateAvatarResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/products/categories": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get products categories",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductsCategoriesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/products": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get recommended products",
+
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "schema": { "type": "string" },
+            "description": "Product's category"
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "schema": { "type": "string" },
+            "description": "Product's name"
+          },
+          {
+            "in": "query",
+            "name": "allowed",
+            "schema": { "type": "boolean" },
+            "description": "Allowed product"
+          },
+          {
+            "in": "query",
+            "name": "pageNumber",
+            "schema": { "type": "integer" },
+            "description": "Pagination's list page"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "schema": { "type": "integer" },
+            "description": "Number of elements per page"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/exercises": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Get exercises categories",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetExercisesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/exercises/param": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Get exercises by params",
+
+        "parameters": [
+          {
+            "in": "query",
+            "name": "key",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "bodyPart or equipment or target"
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "The value from the name's key from the one of elements bodyPart or equipment or target"
+          },
+          {
+            "in": "query",
+            "name": "pageNumber",
+            "schema": { "type": "integer" },
+            "description": "Pagination's list page"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "schema": { "type": "integer" },
+            "description": "Number of elements per page"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetExercisesByParamsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Test Name"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "test@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "example123"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Test Name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "test@gmail.com"
+              }
+            }
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token(23h)",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
+          }
+        },
+        "example": {
+          "user": {
+            "name": "Test Name",
+            "email": "test@gmail.com"
+          },
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
+        }
+      },
+      "-----------------": "-------------------------------------",
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "test@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "example123"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token(23h)",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e3d87bc8a84879e6a6f8e0"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Test Name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "test@gmail.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatar url",
+                "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
+              },
+              "height": {
+                "type": "integer",
+                "description": "User's height",
+                "example": 170
+              },
+              "currentWeight": {
+                "type": "integer",
+                "description": "User's weight",
+                "example": 80
+              },
+              "desiredWeight": {
+                "type": "integer",
+                "description": "User's desired weight",
+                "example": 70
+              },
+              "birthday": {
+                "type": "string",
+                "description": "User's birthday",
+                "example": "1995-05-08T21:00:00.000Z"
+              },
+              "blood": {
+                "type": "integer",
+                "description": "User's blood",
+                "example": 4
+              },
+              "sex": {
+                "type": "string",
+                "description": "User's sex",
+                "example": "male"
+              },
+              "levelActivity": {
+                "type": "integer",
+                "description": "User's level activity",
+                "example": 5
+              },
+              "bmr": {
+                "type": "integer",
+                "description": "User's daily calorie intake",
+                "example": 3282
+              },
+              "dpa": {
+                "type": "integer",
+                "description": "User's daily physical activity",
+                "example": 110
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "User's created date",
+                "example": "2024-03-03T01:55:07.361+00:00"
+              }
+            }
+          }
+        },
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTNkODdiYzhhODQ4NzllNmE2ZjhlMCIsImlhdCI6MTcwOTQzMjI5OSwiZXhwIjoxNzA5NTE1MDk5fQ.bvEU2L1J2FA3__QFTnJfZzrUBIYWXwUTwZH7FSDerfE",
+          "user": {
+            "_id": "65e3d87bc8a84879e6a6f8e0",
+            "name": "Test Name",
+            "email": "test@gmail.com",
+            "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
+            "height": 170,
+            "currentWeight": 80,
+            "desiredWeight": 70,
+            "birthday": "1995-05-08T21:00:00.000Z",
+            "blood": 4,
+            "sex": "male",
+            "levelActivity": 5,
+            "bmr": 3282,
+            "dpa": 110,
+            "createdAt": "2024-03-03T01:55:07.361+00:00"
+          }
+        }
+      },
+      "-------------------": "-------------------------------------",
+      "LogoutResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Logout success",
+            "example": "Logout success"
+          }
+        },
+        "example": { "message": "Logout success" }
+      },
+      "------------------": "-------------------------------------",
+      "GetCurrentUserResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token(23h)",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e3d87bc8a84879e6a6f8e0"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Test Name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "test@gmail.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatar url",
+                "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
+              },
+              "height": {
+                "type": "integer",
+                "description": "User's height",
+                "example": 170
+              },
+              "currentWeight": {
+                "type": "integer",
+                "description": "User's weight",
+                "example": 80
+              },
+              "desiredWeight": {
+                "type": "integer",
+                "description": "User's desired weight",
+                "example": 70
+              },
+              "birthday": {
+                "type": "string",
+                "description": "User's birthday",
+                "example": "1995-05-08T21:00:00.000Z"
+              },
+              "blood": {
+                "type": "integer",
+                "description": "User's blood",
+                "example": 4
+              },
+              "sex": {
+                "type": "string",
+                "description": "User's sex",
+                "example": "male"
+              },
+              "levelActivity": {
+                "type": "integer",
+                "description": "User's level activity",
+                "example": 5
+              },
+              "bmr": {
+                "type": "integer",
+                "description": "User's daily calorie intake",
+                "example": 3282
+              },
+              "dpa": {
+                "type": "integer",
+                "description": "User's daily physical activity",
+                "example": 110
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "User's created date",
+                "example": "2024-03-03T01:55:07.361+00:00"
+              }
+            }
+          }
+        },
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTNkODdiYzhhODQ4NzllNmE2ZjhlMCIsImlhdCI6MTcwOTQzMjI5OSwiZXhwIjoxNzA5NTE1MDk5fQ.bvEU2L1J2FA3__QFTnJfZzrUBIYWXwUTwZH7FSDerfE",
+          "user": {
+            "_id": "65e3d87bc8a84879e6a6f8e0",
+            "name": "Test Name",
+            "email": "test@gmail.com",
+            "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
+            "height": 170,
+            "currentWeight": 80,
+            "desiredWeight": 70,
+            "birthday": "1995-05-08T21:00:00.000Z",
+            "blood": 4,
+            "sex": "male",
+            "levelActivity": 5,
+            "bmr": 3282,
+            "dpa": 110,
+            "createdAt": "2024-03-03T01:55:07.361+00:00"
+          }
+        }
+      },
+      "----------------------": "-------------------------------------",
+      "UpdateUserRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "height",
+          "currentWeight",
+          "desiredWeight",
+          "birthday",
+          "blood",
+          "sex",
+          "levelActivity"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Test Name"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "test@gmail.com"
+          },
+          "height": {
+            "type": "integer",
+            "description": "User's height",
+            "example": 170
+          },
+          "currentWeight": {
+            "type": "integer",
+            "description": "User's weight",
+            "example": 80
+          },
+          "desiredWeight": {
+            "type": "integer",
+            "description": "User's desired weight",
+            "example": 70
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "1995-05-08T21:00:00.000Z"
+          },
+          "blood": {
+            "type": "integer",
+            "description": "User's blood",
+            "example": 4
+          },
+          "sex": {
+            "type": "string",
+            "description": "User's sex",
+            "example": "male"
+          },
+          "levelActivity": {
+            "type": "integer",
+            "description": "User's level activity",
+            "example": 5
+          }
+        },
+
+        "example": {
+          "name": "Test Name",
+          "email": "test@gmail.com",
+          "height": 170,
+          "currentWeight": 80,
+          "desiredWeight": 70,
+          "birthday": "05-09-1995",
+          "blood": 4,
+          "sex": "male",
+          "levelActivity": 5
+        }
+      },
+      "UpdateUserResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e3d87bc8a84879e6a6f8e0"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Test Name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "test@gmail.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatar url",
+                "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
+              },
+              "height": {
+                "type": "integer",
+                "description": "User's height",
+                "example": 170
+              },
+              "currentWeight": {
+                "type": "integer",
+                "description": "User's weight",
+                "example": 80
+              },
+              "desiredWeight": {
+                "type": "integer",
+                "description": "User's desired weight",
+                "example": 70
+              },
+              "birthday": {
+                "type": "string",
+                "description": "User's birthday",
+                "example": "1995-05-08T21:00:00.000Z"
+              },
+              "blood": {
+                "type": "integer",
+                "description": "User's blood",
+                "example": 4
+              },
+              "sex": {
+                "type": "string",
+                "description": "User's sex",
+                "example": "male"
+              },
+              "levelActivity": {
+                "type": "integer",
+                "description": "User's level activity",
+                "example": 5
+              },
+              "bmr": {
+                "type": "integer",
+                "description": "User's daily calorie intake",
+                "example": 3282
+              },
+              "dpa": {
+                "type": "integer",
+                "description": "User's daily physical activity",
+                "example": 110
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "User's created date",
+                "example": "2024-03-03T01:55:07.361+00:00"
+              }
+            }
+          }
+        },
+
+        "example": {
+          "user": {
+            "_id": "65e3d87bc8a84879e6a6f8e0",
+            "name": "Test Name",
+            "email": "test@gmail.com",
+            "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
+            "height": 170,
+            "currentWeight": 80,
+            "desiredWeight": 70,
+            "birthday": "1995-05-08T21:00:00.000Z",
+            "blood": 4,
+            "sex": "male",
+            "levelActivity": 5,
+            "bmr": 3282,
+            "dpa": 110,
+            "createdAt": "2024-03-03T01:55:07.361+00:00"
+          }
+        }
+      },
+      "--------------------": "-------------------------------------",
+      "UpdateAvatarRequest": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "description": "Picture in JPEG or PNG format"
+          }
+        }
+      },
+      "UpdateAvatarResponse": {
+        "type": "object",
+        "properties": {
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar url",
+            "example": "https://res.cloudinary.com/powerpulse/image/upload/v1709475451/avatars/3BJZYEerC4RAWtgvaLICG.jpg.jpg"
+          }
+        },
+        "example": {
+          "avatarURL": "https://res.cloudinary.com/powerpulse/image/upload/v1709475451/avatars/3BJZYEerC4RAWtgvaLICG.jpg.jpg"
+        }
+      },
+      "---------------------": "-------------------------------------",
+      "GetProductsCategoriesResponse": {
+        "type": "object",
+        "properties": {
+          "productsCategories": {
+            "type": "array",
+            "items": {
+              "description": "Product categories list",
+              "type": "string"
+            },
+            "otherProperty": {
+              "type": "string"
+            }
+          }
+        },
+        "example": {
+          "productsCategories": [
+            "alcoholic drinks",
+            "berries",
+            "cereals",
+            "dairy",
+            "dried fruits",
+            "eggs",
+            "fish",
+            "flour",
+            "fruits",
+            "meat",
+            "mushrooms",
+            "nuts",
+            "oils and fats",
+            "poppy",
+            "sausage",
+            "seeds",
+            "sesame",
+            "soft drinks",
+            "vegetables and herbs"
+          ]
+        }
+      },
+      "-----------------------": "-------------------------------------",
+      "GetProductsResponse": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "groupBloodNotAllowed": {
+                  "type": "object",
+                  "properties": {
+                    "1": {
+                      "type": "boolean",
+                      "description": "Product allowed for group blood",
+                      "example": "true"
+                    },
+                    "2": {
+                      "type": "boolean",
+                      "description": "Product allowed for group blood",
+                      "example": "true"
+                    },
+                    "3": {
+                      "type": "boolean",
+                      "description": "Product allowed for group blood",
+                      "example": "false"
+                    },
+                    "4": {
+                      "type": "boolean",
+                      "description": "Product allowed for group blood",
+                      "example": "false"
+                    }
+                  }
+                },
+                "_id": {
+                  "type": "string",
+                  "description": "Product id",
+                  "example": "5d51694902b2373622ff5b72"
+                },
+                "weight": {
+                  "type": "integer",
+                  "description": "Product weight",
+                  "example": 100
+                },
+                "calories": {
+                  "type": "integer",
+                  "description": "Product calories",
+                  "example": 90
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Product category",
+                  "example": "fish"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Product title",
+                  "example": "Lobster"
+                }
+              }
+            }
+          },
+          "totalDocs": {
+            "type": "integer",
+            "description": "Total number of elements",
+            "example": 41
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Number of elements per page",
+            "example": 18
+          },
+          "page": {
+            "type": "integer",
+            "description": "Pagination's list page",
+            "example": 1
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Total number of pages",
+            "example": 3
+          }
+        },
+        "example": {
+          "products": [
+            {
+              "groupBloodNotAllowed": {
+                "1": false,
+                "2": true,
+                "3": false,
+                "4": true
+              },
+              "_id": "5d51694902b2373622ff5937",
+              "weight": 100,
+              "calories": 187,
+              "category": "meat",
+              "title": "Beef"
+            }
+          ],
+          "totalDocs": 41,
+          "limit": 18,
+          "page": 1,
+          "totalPages": 3
+        }
+      },
+      "-------------------------": "-------------------------------------",
+      "GetExercisesResponse": {
+        "type": "object",
+        "properties": {
+          "bodyPart": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Exercise id",
+                  "example": "650f35ece3f5522fc6396289"
+                },
+                "filter": {
+                  "type": "string",
+                  "description": "Filter name",
+                  "example": "Body parts"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Body part",
+                  "example": "back"
+                },
+                "imgURL": {
+                  "type": "string",
+                  "description": "Image URL",
+                  "example": "https://ftp.goit.study/img/power-pulse/filters/back_wzzphw.jpg"
+                }
+              }
+            }
+          },
+          "equipment": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Equipment id",
+                  "example": "650f35ece3f5522fc6396293"
+                },
+                "filter": {
+                  "type": "string",
+                  "description": "Filter name",
+                  "example": "Equipment"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Equipment name",
+                  "example": "assisted"
+                },
+                "imgURL": {
+                  "type": "string",
+                  "description": "Image URL",
+                  "example": "https://ftp.goit.study/img/power-pulse/filters/assisted_gukduh.jpg"
+                }
+              }
+            }
+          },
+          "target": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Muscles id",
+                  "example": "650f35ece3f5522fc63962af"
+                },
+                "filter": {
+                  "type": "string",
+                  "description": "Filter name",
+                  "example": "Muscles"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Muscle part",
+                  "example": "abductors"
+                },
+                "imgURL": {
+                  "type": "string",
+                  "description": "Image URL",
+                  "example": "https://ftp.goit.study/img/power-pulse/filters/abductors_ymfukx.jpg"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "bodyPart": [
+            {
+              "_id": "650f35ece3f5522fc6396289",
+              "filter": "Body parts",
+              "name": "back",
+              "imgURL": "https://ftp.goit.study/img/power-pulse/filters/back_wzzphw.jpg"
+            }
+          ],
+          "equipment": [
+            {
+              "_id": "650f35ece3f5522fc6396293",
+              "filter": "Equipment",
+              "name": "assisted",
+              "imgURL": "https://ftp.goit.study/img/power-pulse/filters/assisted_gukduh.jpg"
+            }
+          ],
+          "target": [
+            {
+              "_id": "650f35ece3f5522fc63962af",
+              "filter": "Muscles",
+              "name": "abductors",
+              "imgURL": "https://ftp.goit.study/img/power-pulse/filters/abductors_ymfukx.jpg"
+            }
+          ]
+        }
+      },
+      "------------------------": "-------------------------------------",
+      "GetExercisesByParamsResponse": {
+        "type": "object",
+        "properties": {
+          "exercises": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Exercise id",
+                  "example": "64f2458d6f67bc34bae4f9ea"
+                },
+                "bodyPart": {
+                  "type": "string",
+                  "description": "Body part",
+                  "example": "upper legs"
+                },
+                "equipment": {
+                  "type": "string",
+                  "description": "Equipment for workout",
+                  "example": "leverage machine"
+                },
+                "gifUrl": {
+                  "type": "string",
+                  "description": "Exercise animation",
+                  "example": "https://ftp.goit.study/img/power-pulse/gifs/0597.gif"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Exercise name",
+                  "example": "lever seated hip abduction"
+                },
+                "target": {
+                  "type": "string",
+                  "description": "Muscles part",
+                  "example": "abductors"
+                },
+                "burnedCalories": {
+                  "type": "integer",
+                  "description": "Burned calories quantity",
+                  "example": 279
+                },
+                "time": {
+                  "type": "integer",
+                  "description": "Time of exercise",
+                  "example": 279
+                }
+              }
+            }
+          },
+          "totalDocs": {
+            "type": "integer",
+            "description": "Total number of elements",
+            "example": 5
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Number of elements per page",
+            "example": 18
+          },
+          "page": {
+            "type": "integer",
+            "description": "Pagination's list page",
+            "example": 1
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Total number of pages",
+            "example": 3
+          }
+        },
+        "example": {
+          "exercises": [
+            {
+              "_id": "64f2458d6f67bc34bae4f9ea",
+              "bodyPart": "upper legs",
+              "equipment": "leverage machine",
+              "gifUrl": "https://ftp.goit.study/img/power-pulse/gifs/0597.gif",
+              "name": "lever seated hip abduction",
+              "target": "abductors",
+              "burnedCalories": 279,
+              "time": 3
+            }
+          ],
+          "totalDocs": 5,
+          "limit": 30,
+          "page": 1,
+          "totalPages": 1
+        }
+      }
+    },
+
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
