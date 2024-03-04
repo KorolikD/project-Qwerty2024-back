@@ -1,5 +1,5 @@
 const { HttpError } = require("../../helpers");
-const { ProductsDiary, Product } = require("../../models");
+const { ProductsDiary, Product, Exercise } = require("../../models");
 
 const addEatenProduct = async (req, res) => {
   const { _id: ownerId } = req.user;

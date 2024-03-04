@@ -1,11 +1,11 @@
-const { Diary, ExerciseDiary } = require("../../models");
+const { ProductsDiary, ExerciseDiary } = require("../../models");
 
 const getInfoForDay = async (req, res) => {
   const { _id: owner } = req.user;
 
   const { date } = req.query;
 
-  const foundProducts = await Diary.findOne({ owner, date });
+  const foundProducts = await ProductsDiary.findOne({ owner, date });
   const foundExercises = await ExerciseDiary.findOne({ owner, date });
 
   if (!foundProducts && !foundExercises) {
