@@ -1,12 +1,9 @@
 const {
-  getVideosQuantity,
-  getUsersQuantity,
+  getStatistics,
 } = require("../controllers/statistics");
 
 const statisticsRouter = require("express").Router();
 
-statisticsRouter.get("/videos/quantity", getVideosQuantity);
-
-statisticsRouter.get("/users/quantity", getUsersQuantity);
+statisticsRouter.get("/", getStatistics);
 
 module.exports = statisticsRouter;
