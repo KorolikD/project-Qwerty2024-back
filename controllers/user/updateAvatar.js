@@ -11,8 +11,8 @@ const updateAvatar = async (req, res) => {
   }
 
   const uniqueFilename = nanoid();
-  const extension = path.extname(file.originalname);
-  const fileName = `${uniqueFilename}${extension}`;
+
+  const fileName = `${uniqueFilename}`;
 
   const result = await cloudinary.uploader.upload(file.path, {
     public_id: `${fileName}`,
@@ -29,10 +29,7 @@ const updateAvatar = async (req, res) => {
 
   await user.save();
 
-  res.json({
-    message: "Avatar uploaded successfully",
-    avatarURL,
-  });
+  res.json({ avatarURL: avatarURL });
 };
 
 module.exports = updateAvatar;
