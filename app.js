@@ -44,7 +44,7 @@ module.exports = app;
 //* "/users/current";
 //* "/users/params";
 // * "/users/avatar"
-// TODO "/products/categories"
-// "/products"
-// "/exercises"
-// "/exercises/param"
+// * "/products/categories"
+// * "/products"
+// * "/exercises"
+// * "/exercises/param"

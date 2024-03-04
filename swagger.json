@@ -364,9 +364,15 @@
           },
           {
             "in": "query",
-            "name": "title",
-            "schema": { "type": "string" },
-            "description": "Product's name"
+            "name": "pageNumber",
+            "schema": { "type": "integer" },
+            "description": "Pagination's list page"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "schema": { "type": "integer" },
+            "description": "Number of elements per page"
           }
         ],
         "security": [{ "Bearer": [] }],
@@ -381,6 +387,107 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/exercises": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Get exercises categories",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetExercisesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/exercises/param": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Get exercises by params",
+
+        "parameters": [
+          {
+            "in": "query",
+            "name": "key",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "bodyPart or equipment or target"
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "The value from the name's key from the one of elements bodyPart or equipment or target"
+          },
+          {
+            "in": "query",
+            "name": "pageNumber",
+            "schema": { "type": "integer" },
+            "description": "Pagination's list page"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "schema": { "type": "integer" },
+            "description": "Number of elements per page"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetExercisesByParamsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
           },
           "401": {
             "description": "Unauthorized",
@@ -930,90 +1037,316 @@
       },
       "-----------------------": "-------------------------------------",
       "GetProductsResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "groupBloodNotAllowed": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
               "type": "object",
               "properties": {
-                "1": {
-                  "type": "boolean",
-                  "description": "Product allowed for group blood",
-                  "example": "true"
+                "groupBloodNotAllowed": {
+                  "type": "object",
+                  "properties": {
+                    "1": {
+                      "type": "boolean",
+                      "description": "Product allowed for group blood",
+                      "example": "true"
+                    },
+                    "2": {
+                      "type": "boolean",
+                      "description": "Product allowed for group blood",
+                      "example": "true"
+                    },
+                    "3": {
+                      "type": "boolean",
+                      "description": "Product allowed for group blood",
+                      "example": "false"
+                    },
+                    "4": {
+                      "type": "boolean",
+                      "description": "Product allowed for group blood",
+                      "example": "false"
+                    }
+                  }
                 },
-                "2": {
-                  "type": "boolean",
-                  "description": "Product allowed for group blood",
-                  "example": "true"
+                "_id": {
+                  "type": "string",
+                  "description": "Product id",
+                  "example": "5d51694902b2373622ff5b72"
                 },
-                "3": {
-                  "type": "boolean",
-                  "description": "Product allowed for group blood",
-                  "example": "false"
+                "weight": {
+                  "type": "integer",
+                  "description": "Product weight",
+                  "example": 100
                 },
-                "4": {
-                  "type": "boolean",
-                  "description": "Product allowed for group blood",
-                  "example": "false"
+                "calories": {
+                  "type": "integer",
+                  "description": "Product calories",
+                  "example": 90
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Product category",
+                  "example": "fish"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Product title",
+                  "example": "Lobster"
                 }
               }
-            },
-            "_id": {
-              "type": "string",
-              "description": "Product id",
-              "example": "5d51694902b2373622ff5b72"
-            },
-            "weight": {
-              "type": "integer",
-              "description": "Product weight",
-              "example": 100
-            },
-            "calories": {
-              "type": "integer",
-              "description": "Product calories",
-              "example": 90
-            },
-            "category": {
-              "type": "string",
-              "description": "Product category",
-              "example": "fish"
-            },
-            "title": {
-              "type": "string",
-              "description": "Product title",
-              "example": "Lobster"
+            }
+          },
+          "totalDocs": {
+            "type": "integer",
+            "description": "Total number of elements",
+            "example": 41
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Number of elements per page",
+            "example": 18
+          },
+          "page": {
+            "type": "integer",
+            "description": "Pagination's list page",
+            "example": 1
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Total number of pages",
+            "example": 3
+          }
+        },
+        "example": {
+          "products": [
+            {
+              "groupBloodNotAllowed": {
+                "1": false,
+                "2": true,
+                "3": false,
+                "4": true
+              },
+              "_id": "5d51694902b2373622ff5937",
+              "weight": 100,
+              "calories": 187,
+              "category": "meat",
+              "title": "Beef"
+            }
+          ],
+          "totalDocs": 41,
+          "limit": 18,
+          "page": 1,
+          "totalPages": 3
+        }
+      },
+      "-------------------------": "-------------------------------------",
+      "GetExercisesResponse": {
+        "type": "object",
+        "properties": {
+          "bodyPart": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Exercise id",
+                  "example": "650f35ece3f5522fc6396289"
+                },
+                "filter": {
+                  "type": "string",
+                  "description": "Filter name",
+                  "example": "Body parts"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Body part",
+                  "example": "back"
+                },
+                "imgURL": {
+                  "type": "string",
+                  "description": "Image URL",
+                  "example": "https://ftp.goit.study/img/power-pulse/filters/back_wzzphw.jpg"
+                }
+              }
+            }
+          },
+          "equipment": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Equipment id",
+                  "example": "650f35ece3f5522fc6396293"
+                },
+                "filter": {
+                  "type": "string",
+                  "description": "Filter name",
+                  "example": "Equipment"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Equipment name",
+                  "example": "assisted"
+                },
+                "imgURL": {
+                  "type": "string",
+                  "description": "Image URL",
+                  "example": "https://ftp.goit.study/img/power-pulse/filters/assisted_gukduh.jpg"
+                }
+              }
+            }
+          },
+          "target": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Muscles id",
+                  "example": "650f35ece3f5522fc63962af"
+                },
+                "filter": {
+                  "type": "string",
+                  "description": "Filter name",
+                  "example": "Muscles"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Muscle part",
+                  "example": "abductors"
+                },
+                "imgURL": {
+                  "type": "string",
+                  "description": "Image URL",
+                  "example": "https://ftp.goit.study/img/power-pulse/filters/abductors_ymfukx.jpg"
+                }
+              }
             }
           }
         },
-        "example": [
-          {
-            "groupBloodNotAllowed": {
-              "1": false,
-              "2": false,
-              "3": false,
-              "4": false
-            },
-            "_id": "5d51694902b2373622ff5b72",
-            "weight": 100,
-            "calories": 90,
-            "category": "fish",
-            "title": "Lobster"
+        "example": {
+          "bodyPart": [
+            {
+              "_id": "650f35ece3f5522fc6396289",
+              "filter": "Body parts",
+              "name": "back",
+              "imgURL": "https://ftp.goit.study/img/power-pulse/filters/back_wzzphw.jpg"
+            }
+          ],
+          "equipment": [
+            {
+              "_id": "650f35ece3f5522fc6396293",
+              "filter": "Equipment",
+              "name": "assisted",
+              "imgURL": "https://ftp.goit.study/img/power-pulse/filters/assisted_gukduh.jpg"
+            }
+          ],
+          "target": [
+            {
+              "_id": "650f35ece3f5522fc63962af",
+              "filter": "Muscles",
+              "name": "abductors",
+              "imgURL": "https://ftp.goit.study/img/power-pulse/filters/abductors_ymfukx.jpg"
+            }
+          ]
+        }
+      },
+      "------------------------": "-------------------------------------",
+      "GetExercisesByParamsResponse": {
+        "type": "object",
+        "properties": {
+          "exercises": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Exercise id",
+                  "example": "64f2458d6f67bc34bae4f9ea"
+                },
+                "bodyPart": {
+                  "type": "string",
+                  "description": "Body part",
+                  "example": "upper legs"
+                },
+                "equipment": {
+                  "type": "string",
+                  "description": "Equipment for workout",
+                  "example": "leverage machine"
+                },
+                "gifUrl": {
+                  "type": "string",
+                  "description": "Exercise animation",
+                  "example": "https://ftp.goit.study/img/power-pulse/gifs/0597.gif"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Exercise name",
+                  "example": "lever seated hip abduction"
+                },
+                "target": {
+                  "type": "string",
+                  "description": "Muscles part",
+                  "example": "abductors"
+                },
+                "burnedCalories": {
+                  "type": "integer",
+                  "description": "Burned calories quantity",
+                  "example": 279
+                },
+                "time": {
+                  "type": "integer",
+                  "description": "Time of exercise",
+                  "example": 279
+                }
+              }
+            }
           },
-          {
-            "groupBloodNotAllowed": {
-              "1": false,
-              "2": false,
-              "3": false,
-              "4": false
-            },
-            "_id": "5d51694902b2373622ff5b64",
-            "weight": 100,
-            "calories": 88,
-            "category": "fish",
-            "title": "Lobster (neck meat)"
+          "totalDocs": {
+            "type": "integer",
+            "description": "Total number of elements",
+            "example": 5
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Number of elements per page",
+            "example": 18
+          },
+          "page": {
+            "type": "integer",
+            "description": "Pagination's list page",
+            "example": 1
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Total number of pages",
+            "example": 3
           }
-        ]
+        },
+        "example": {
+          "exercises": [
+            {
+              "_id": "64f2458d6f67bc34bae4f9ea",
+              "bodyPart": "upper legs",
+              "equipment": "leverage machine",
+              "gifUrl": "https://ftp.goit.study/img/power-pulse/gifs/0597.gif",
+              "name": "lever seated hip abduction",
+              "target": "abductors",
+              "burnedCalories": 279,
+              "time": 3
+            }
+          ],
+          "totalDocs": 5,
+          "limit": 30,
+          "page": 1,
+          "totalPages": 1
+        }
       }
     },
 
