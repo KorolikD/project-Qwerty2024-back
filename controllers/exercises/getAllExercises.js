@@ -1,5 +1,5 @@
 const { filterExercises } = require("../../helpers");
-const Filter = require("../../models/Filter");
+const { Filter } = require("../../models");
 
 const getAllExercises = async (req, res) => {
   const data = await Filter.find();
