@@ -7,19 +7,18 @@ const updateUser = async (req, res) => {
   const { currentWeight, height, birthday, levelActivity, sex } = req.body;
 
   const age = getUserAge(birthday);
-  console.log("age: ", age);
-  console.log("level: ", levelActivities[levelActivity]);
 
   const correction = sex === "male" ? 5 : -161;
-  const bmr =
+  const bmr = Math.round(
     (10 * currentWeight + 6.25 * height - 5 * age + correction) *
-    levelActivities[levelActivity];
+      levelActivities[levelActivity]
+  );
 
   const user = await User.findByIdAndUpdate(
     _id,
     { ...req.body, bmr, dpa: 110 },
     { new: true, runValidators: true }
-  ).select("-password -createdAt -updatedAt -token ");
+  ).select("-password -updatedAt -token ");
 
   res.json({ user });
 };
