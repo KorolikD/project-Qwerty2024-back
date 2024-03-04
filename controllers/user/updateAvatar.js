@@ -29,7 +29,7 @@ const updateAvatar = async (req, res) => {
 
   await user.save();
 
-  res.json(avatarURL);
+  res.json({ avatarURL: avatarURL });
 };
 
 module.exports = updateAvatar;
