@@ -89,6 +89,18 @@ const userSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
+userSchema.post(["save", "findOneAndUpdate"], (error, doc, next) => {
+  const { name, code } = error;
+
+  const isConflict = name === "MongoServerError" && code === 11000;
+  if (isConflict) {
+    error.status = 409;
+    error.message = "Provided email already exists";
+  }
+
+  next();
+});
+
 const User = model("user", userSchema);
 
 module.exports = User;
