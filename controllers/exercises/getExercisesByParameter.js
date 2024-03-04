@@ -1,5 +1,5 @@
 const { HttpError } = require("../../helpers");
-const Exercise = require("../../models/Exercise");
+const { Exercise } = require("../../models");
 
 const getExercisesByParameter = async (req, res) => {
   const { key, value, pageNumber, pageSize } = req.query;

@@ -1,5 +1,5 @@
 const { HttpError } = require("../../helpers");
-const Product = require("../../models/Product");
+const { Product } = require("../../models");
 
 const getProducts = async (req, res) => {
   const { blood } = req.user;
