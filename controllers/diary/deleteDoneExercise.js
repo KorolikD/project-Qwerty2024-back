@@ -1,40 +1,41 @@
-const { ExerciseDiary } = require("../../models");
 const { ObjectId } = require("bson");
+const { ExerciseDiary } = require("../../models");
 
 const deleteDoneExercise = async (req, res) => {
-  const { _id: owner } = req.user;
+  const { _id: ownerId } = req.user;
 
-  const { exercise, date } = req.body;
-  const exerciseId = ObjectId.createFromHexString(exercise);
+  const { exerciseId, date } = req.body;
+
+  const fixedExerciseId = ObjectId.createFromHexString(exerciseId);
 
   const foundedDiary = await ExerciseDiary.findOne({
     date,
-    owner,
-    "exercises._id": exerciseId,
+    ownerId,
+    "exercises._id": fixedExerciseId,
   });
 
   if (!foundedDiary) {
     res
-      .status(200)
+      .status(409)
       .json({ message: "You can't delete exercise what you didn't do" });
     return;
   }
 
-  const { _id: id, exercises } = foundedDiary;
+  const { _id: diaryId, exercises } = foundedDiary;
 
   const exerciseIndex = exercises.findIndex((item) =>
-    item._id.equals(exerciseId)
+    item._id.equals(fixedExerciseId)
   );
 
   const removedExercise = exercises.splice(exerciseIndex, 1)[0];
 
   const result = await ExerciseDiary.findOneAndUpdate(
-    id,
+    diaryId,
     {
       $set: { exercises: exercises },
       $inc: {
         burnedCalories: -removedExercise.burnedCalories,
-        time: -removedExercise.time,
+        totalTime: -removedExercise.time,
       },
     },
     { new: true }

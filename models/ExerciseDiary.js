@@ -4,7 +4,7 @@ const dateRegexp = /^\d{2}\/\d{2}\/\d{4}$/;
 
 const ExerciseDiary = new Schema(
   {
-    owner: {
+    ownerId: {
       type: Schema.Types.ObjectId,
       ref: "user",
     },
@@ -18,7 +18,7 @@ const ExerciseDiary = new Schema(
       type: Number,
       default: 0,
     },
-    time: {
+    totalTime: {
       type: Number,
       default: 0,
     },
@@ -26,4 +26,4 @@ const ExerciseDiary = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-module.exports = model("completion", ExerciseDiary);
+module.exports = model("completed-workout", ExerciseDiary);

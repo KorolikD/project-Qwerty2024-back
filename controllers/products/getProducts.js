@@ -1,4 +1,3 @@
-const { HttpError } = require("../../helpers");
 const { Product } = require("../../models");
 
 const getProducts = async (req, res) => {
@@ -7,6 +6,7 @@ const getProducts = async (req, res) => {
   const { category, title, allowed, pageNumber, pageSize } = req.query;
 
   const query = {};
+
   category && (query.category = category);
   title && (query.title = new RegExp(title, "i"));
   allowed &&

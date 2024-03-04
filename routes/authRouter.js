@@ -5,17 +5,14 @@ const { registerSchema, loginSchema, updateSchema } = require("../schemas");
 
 const authRouter = require("express").Router();
 
-// дописати логіку відносно ТЗ
 authRouter.post("/register", validateBody(registerSchema), registration);
 
 authRouter.post("/login", validateBody(loginSchema), login);
 
 authRouter.post("/logout", authenticate, logout);
 
-// змінити логіку відносно ТЗ
 authRouter.get("/current", authenticate, getCurrent);
 
-// написати логіку відносно ТЗ
 authRouter.patch(
   "/params",
   authenticate,
@@ -23,7 +20,6 @@ authRouter.patch(
   updateUser
 );
 
-// змінити логіку відносно ТЗ
 authRouter.patch(
   "/avatar",
   authenticate,

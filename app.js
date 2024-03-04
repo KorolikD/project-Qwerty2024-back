@@ -47,4 +47,5 @@ module.exports = app;
 // * "/products/categories"
 // * "/products"
 // * "/exercises"
-// * "/exercises/param"
+// * "/exercises/params"
+// TODO /statistics

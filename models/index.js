@@ -1,7 +1,15 @@
 const User = require("./User");
-const Diary = require("./Diary");
+const ProductsDiary = require("./ProductsDiary");
 const Exercise = require("./Exercise");
 const Filter = require("./Filter");
 const Product = require("./Product");
+const ExerciseDiary = require("./ExerciseDiary");
 
-module.exports = { User, Diary, Exercise, Filter, Product };
+module.exports = {
+  User,
+  ProductsDiary,
+  Exercise,
+  Filter,
+  Product,
+  ExerciseDiary,
+};
