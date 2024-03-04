@@ -3,7 +3,7 @@ const filterExercises = (array) => {
   const equipment = array.filter((item) => item.filter === "Equipment");
   const target = array.filter((item) => item.filter === "Muscles");
 
-  return { bodyParts, equipment, muscles };
+  return { bodyPart, equipment, target };
 };
 
 module.exports = filterExercises;
