@@ -2,8 +2,10 @@ const { HttpError } = require("../../helpers");
 const { ProductsDiary, Product } = require("../../models");
 
 const addEatenProduct = async (req, res) => {
+  // беремо ІД авторизованого юзера
   const { _id: ownerId } = req.user;
 
+  // Забираємо тіло запиту
   const { productId, date } = req.body;
 
   const productData = await Product.findOne({ _id: productId });
