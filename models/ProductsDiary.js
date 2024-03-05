@@ -16,14 +16,30 @@ const ProductsDiary = new Schema(
       match: [dateRegexp, "Invalid date format. Please use dd/mm/yyyy"],
     },
 
-    products: {
-      type: Array,
-      productId: {
-        type: Schema.Types.ObjectId,
-        ref: "products",
+    products: [
+      {
+        // _id: {
+        //   type: Schema.Types.ObjectId,
+        //   required: true,
+        // },
+
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: "products",
+          required: [true, "Provide the productId"],
+        },
+
+        weight: {
+          type: Number,
+          required: [true, "Provide the total weight of the product"],
+        },
+
+        calories: {
+          type: Number,
+          required: [true, "Provide the total quantity of calories"],
+        },
       },
-      default: [],
-    },
+    ],
 
     totalCalories: {
       type: Number,

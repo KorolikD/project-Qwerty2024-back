@@ -15,14 +15,30 @@ const ExerciseDiary = new Schema(
       match: [dateRegexp, "Invalid date format. Please use dd/mm/yyyy"],
     },
 
-    exercises: {
-      type: Array,
-      productId: {
-        type: Schema.Types.ObjectId,
-        ref: "exercises",
+    exercises: [
+      {
+        // _id: {
+        //   type: Schema.Types.ObjectId,
+        //   required: true,
+        // },
+
+        exerciseId: {
+          type: Schema.Types.ObjectId,
+          ref: "exercises",
+          required: [true, "Provide the exerciseId"],
+        },
+
+        time: {
+          type: Number,
+          required: [true, "Provide the total time of the workout"],
+        },
+
+        burnedCalories: {
+          type: Number,
+          required: [true, "Provide the total quantity of burned calories"],
+        },
       },
-      default: [],
-    },
+    ],
 
     burnedCalories: {
       type: Number,
