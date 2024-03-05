@@ -38,21 +38,28 @@ app.use(errorHandler);
 
 module.exports = app;
 
-// "/users/login";
-// "/users/register";
-// "/users/logout";
-// "/users/current";
-// "/users/params";
-// "/users/avatar"
+// ? Auth
+// * "/users/login";
+// * "/users/register";
+// * "/users/logout";
+// * "/users/current";
+// * "/users/params";
+// * "/users/avatar"
 
-// * "/products/categories"
-// * "/products"
+// ? Products
+// * "/products/categories
+// * "/products
+
+// ? Exercises
 // * "/exercises"
 // * "/exercises/params"
-// TODO /statistics
 
-// * post "/diary/product"
-// * delete "/diary/product"
-// * post "/diary/exercise"
-// * delete "/diary/exercise"
-// * get "/diary"
+// ? Diary
+// ! post "/diary/product"
+// ! delete "/diary/product"
+// ! post "/diary/exercise"
+// ! delete "/diary/exercise"
+// ! get "/diary"
+
+// ? Statistics
+// ! /statistics

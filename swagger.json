@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.0.0",
+    "version": "1.0.3",
     "title": "💙💛 PowerPulse",
     "description": "PowerPulse backend",
     "license": {
@@ -957,7 +957,7 @@
       "UpdateAvatarRequest": {
         "type": "object",
         "properties": {
-          "file": {
+          "avatar": {
             "type": "string",
             "format": "binary",
             "description": "Picture in JPEG or PNG format"

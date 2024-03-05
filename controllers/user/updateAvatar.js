@@ -5,6 +5,7 @@ const cloudinary = require("cloudinary").v2;
 
 const updateAvatar = async (req, res) => {
   const { file, user } = req;
+  console.log("🤬>>>  file:\n", file);
 
   if (!file) {
     throw HttpError(400, "File not found");
@@ -21,7 +22,7 @@ const updateAvatar = async (req, res) => {
     unique_filename: false,
     overwrite: true,
   });
-  console.log(file.filename);
+
   await cloudinary.uploader.destroy(file.filename);
 
   const avatarURL = result.secure_url;
