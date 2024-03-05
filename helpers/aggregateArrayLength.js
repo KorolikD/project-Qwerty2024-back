@@ -6,8 +6,17 @@ const aggregateArrayLength = async (model, arrayName) => {
       },
     },
     {
+      $group: {
+        _id: null,
+        totalExercisesQuantity: {
+          $sum: { $size: `$${arrayName}` },
+        },
+      },
+    },
+    {
       $project: {
-        totalExercisesQuantity: { $size: `$${arrayName}` },
+        _id: 0,
+        totalExercisesQuantity: 1,
       },
     },
   ]);
