@@ -698,105 +698,93 @@
       "GetCurrentUserResponse": {
         "type": "object",
         "properties": {
-          "token": {
+          "_id": {
             "type": "string",
-            "description": "User's token(23h)",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
+            "description": "User's id",
+            "example": "65e3d87bc8a84879e6a6f8e0"
           },
-          "user": {
-            "type": "object",
-            "properties": {
-              "_id": {
-                "type": "string",
-                "description": "User's id",
-                "example": "65e3d87bc8a84879e6a6f8e0"
-              },
-              "name": {
-                "type": "string",
-                "description": "User's name",
-                "example": "Test Name"
-              },
-              "email": {
-                "type": "string",
-                "description": "User's email",
-                "example": "test@gmail.com"
-              },
-              "avatarURL": {
-                "type": "string",
-                "description": "User's avatar url",
-                "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
-              },
-              "height": {
-                "type": "integer",
-                "description": "User's height",
-                "example": 170
-              },
-              "currentWeight": {
-                "type": "integer",
-                "description": "User's weight",
-                "example": 80
-              },
-              "desiredWeight": {
-                "type": "integer",
-                "description": "User's desired weight",
-                "example": 70
-              },
-              "birthday": {
-                "type": "string",
-                "description": "User's birthday",
-                "example": "1995-05-08T21:00:00.000Z"
-              },
-              "blood": {
-                "type": "integer",
-                "description": "User's blood",
-                "example": 4
-              },
-              "sex": {
-                "type": "string",
-                "description": "User's sex",
-                "example": "male"
-              },
-              "levelActivity": {
-                "type": "integer",
-                "description": "User's level activity",
-                "example": 5
-              },
-              "bmr": {
-                "type": "integer",
-                "description": "User's daily calorie intake",
-                "example": 3282
-              },
-              "dpa": {
-                "type": "integer",
-                "description": "User's daily physical activity",
-                "example": 110
-              },
-              "createdAt": {
-                "type": "string",
-                "description": "User's created date",
-                "example": "2024-03-03T01:55:07.361+00:00"
-              }
-            }
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Test Name"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "test@gmail.com"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar url",
+            "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
+          },
+          "height": {
+            "type": "integer",
+            "description": "User's height",
+            "example": 170
+          },
+          "currentWeight": {
+            "type": "integer",
+            "description": "User's weight",
+            "example": 80
+          },
+          "desiredWeight": {
+            "type": "integer",
+            "description": "User's desired weight",
+            "example": 70
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "1995-05-08T21:00:00.000Z"
+          },
+          "blood": {
+            "type": "integer",
+            "description": "User's blood",
+            "example": 4
+          },
+          "sex": {
+            "type": "string",
+            "description": "User's sex",
+            "example": "male"
+          },
+          "levelActivity": {
+            "type": "integer",
+            "description": "User's level activity",
+            "example": 5
+          },
+          "bmr": {
+            "type": "integer",
+            "description": "User's daily calorie intake",
+            "example": 3282
+          },
+          "dpa": {
+            "type": "integer",
+            "description": "User's daily physical activity",
+            "example": 110
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "User's created date",
+            "example": "2024-03-03T01:55:07.361+00:00"
           }
         },
+
         "example": {
-          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTNkODdiYzhhODQ4NzllNmE2ZjhlMCIsImlhdCI6MTcwOTQzMjI5OSwiZXhwIjoxNzA5NTE1MDk5fQ.bvEU2L1J2FA3__QFTnJfZzrUBIYWXwUTwZH7FSDerfE",
-          "user": {
-            "_id": "65e3d87bc8a84879e6a6f8e0",
-            "name": "Test Name",
-            "email": "test@gmail.com",
-            "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
-            "height": 170,
-            "currentWeight": 80,
-            "desiredWeight": 70,
-            "birthday": "1995-05-08T21:00:00.000Z",
-            "blood": 4,
-            "sex": "male",
-            "levelActivity": 5,
-            "bmr": 3282,
-            "dpa": 110,
-            "createdAt": "2024-03-03T01:55:07.361+00:00"
-          }
+          "_id": "65e3d87bc8a84879e6a6f8e0",
+          "name": "Test Name",
+          "email": "test@gmail.com",
+          "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
+          "height": 170,
+          "currentWeight": 80,
+          "desiredWeight": 70,
+          "birthday": "1995-05-08T21:00:00.000Z",
+          "blood": 4,
+          "sex": "male",
+          "levelActivity": 5,
+          "bmr": 3282,
+          "dpa": 110,
+          "createdAt": "2024-03-03T01:55:07.361+00:00"
         }
       },
       "----------------------": "-------------------------------------",
@@ -876,100 +864,93 @@
       "UpdateUserResponse": {
         "type": "object",
         "properties": {
-          "user": {
-            "type": "object",
-            "properties": {
-              "_id": {
-                "type": "string",
-                "description": "User's id",
-                "example": "65e3d87bc8a84879e6a6f8e0"
-              },
-              "name": {
-                "type": "string",
-                "description": "User's name",
-                "example": "Test Name"
-              },
-              "email": {
-                "type": "string",
-                "description": "User's email",
-                "example": "test@gmail.com"
-              },
-              "avatarURL": {
-                "type": "string",
-                "description": "User's avatar url",
-                "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
-              },
-              "height": {
-                "type": "integer",
-                "description": "User's height",
-                "example": 170
-              },
-              "currentWeight": {
-                "type": "integer",
-                "description": "User's weight",
-                "example": 80
-              },
-              "desiredWeight": {
-                "type": "integer",
-                "description": "User's desired weight",
-                "example": 70
-              },
-              "birthday": {
-                "type": "string",
-                "description": "User's birthday",
-                "example": "1995-05-08T21:00:00.000Z"
-              },
-              "blood": {
-                "type": "integer",
-                "description": "User's blood",
-                "example": 4
-              },
-              "sex": {
-                "type": "string",
-                "description": "User's sex",
-                "example": "male"
-              },
-              "levelActivity": {
-                "type": "integer",
-                "description": "User's level activity",
-                "example": 5
-              },
-              "bmr": {
-                "type": "integer",
-                "description": "User's daily calorie intake",
-                "example": 3282
-              },
-              "dpa": {
-                "type": "integer",
-                "description": "User's daily physical activity",
-                "example": 110
-              },
-              "createdAt": {
-                "type": "string",
-                "description": "User's created date",
-                "example": "2024-03-03T01:55:07.361+00:00"
-              }
-            }
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "65e3d87bc8a84879e6a6f8e0"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Test Name"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "test@gmail.com"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar url",
+            "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
+          },
+          "height": {
+            "type": "integer",
+            "description": "User's height",
+            "example": 170
+          },
+          "currentWeight": {
+            "type": "integer",
+            "description": "User's weight",
+            "example": 80
+          },
+          "desiredWeight": {
+            "type": "integer",
+            "description": "User's desired weight",
+            "example": 70
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "1995-05-08T21:00:00.000Z"
+          },
+          "blood": {
+            "type": "integer",
+            "description": "User's blood",
+            "example": 4
+          },
+          "sex": {
+            "type": "string",
+            "description": "User's sex",
+            "example": "male"
+          },
+          "levelActivity": {
+            "type": "integer",
+            "description": "User's level activity",
+            "example": 5
+          },
+          "bmr": {
+            "type": "integer",
+            "description": "User's daily calorie intake",
+            "example": 3282
+          },
+          "dpa": {
+            "type": "integer",
+            "description": "User's daily physical activity",
+            "example": 110
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "User's created date",
+            "example": "2024-03-03T01:55:07.361+00:00"
           }
         },
 
         "example": {
-          "user": {
-            "_id": "65e3d87bc8a84879e6a6f8e0",
-            "name": "Test Name",
-            "email": "test@gmail.com",
-            "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
-            "height": 170,
-            "currentWeight": 80,
-            "desiredWeight": 70,
-            "birthday": "1995-05-08T21:00:00.000Z",
-            "blood": 4,
-            "sex": "male",
-            "levelActivity": 5,
-            "bmr": 3282,
-            "dpa": 110,
-            "createdAt": "2024-03-03T01:55:07.361+00:00"
-          }
+          "_id": "65e3d87bc8a84879e6a6f8e0",
+          "name": "Test Name",
+          "email": "test@gmail.com",
+          "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
+          "height": 170,
+          "currentWeight": 80,
+          "desiredWeight": 70,
+          "birthday": "1995-05-08T21:00:00.000Z",
+          "blood": 4,
+          "sex": "male",
+          "levelActivity": 5,
+          "bmr": 3282,
+          "dpa": 110,
+          "createdAt": "2024-03-03T01:55:07.361+00:00"
         }
       },
       "--------------------": "-------------------------------------",

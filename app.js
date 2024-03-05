@@ -38,12 +38,13 @@ app.use(errorHandler);
 
 module.exports = app;
 
-//* "/users/register";
-//* "/users/login";
-//* "/users/logout";
-//* "/users/current";
-//* "/users/params";
-// * "/users/avatar"
+// "/users/login";
+// "/users/register";
+// "/users/logout";
+// "/users/current";
+// "/users/params";
+// "/users/avatar"
+
 // * "/products/categories"
 // * "/products"
 // * "/exercises"
