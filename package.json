@@ -6,7 +6,6 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "bson": "^6.4.0",
     "cloudinary": "^1.37.0",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
