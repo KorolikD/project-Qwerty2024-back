@@ -8,22 +8,33 @@ const ExerciseDiary = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
+
     date: {
       type: String,
       required: [true, "Provide date"],
       match: [dateRegexp, "Invalid date format. Please use dd/mm/yyyy"],
     },
-    exercises: [],
+
+    exercises: {
+      type: Array,
+      productId: {
+        type: Schema.Types.ObjectId,
+        ref: "exercises",
+      },
+      default: [],
+    },
+
     burnedCalories: {
       type: Number,
       default: 0,
     },
+
     totalTime: {
       type: Number,
       default: 0,
     },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false, timestamps: false }
 );
 
 module.exports = model("completed-workout", ExerciseDiary);

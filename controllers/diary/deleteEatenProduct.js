@@ -1,18 +1,16 @@
-const { ObjectId } = require("bson");
-const { ProductsDiary } = require("../../models");
+const { ProductsDiary, Product } = require("../../models");
 
 const deleteEatenProduct = async (req, res) => {
   const { _id: ownerId } = req.user;
 
   const { productId, date } = req.body;
 
-  const fixedProductId = ObjectId.createFromHexString(productId);
-
   const foundedDiary = await ProductsDiary.findOne({
     date,
     ownerId,
-    "products._id": fixedProductId,
+    products: { $in: [productId] },
   });
+
   if (!foundedDiary) {
     res
       .status(409)
@@ -22,24 +20,32 @@ const deleteEatenProduct = async (req, res) => {
 
   const { _id: diaryId, products } = foundedDiary;
 
-  const productIndex = products.findIndex((item) =>
-    item._id.equals(fixedProductId)
-  );
+  const productIndex = products.indexOf(productId);
 
-  const removedProduct = products.splice(productIndex, 1)[0];
+  const productsInfo = await ProductsDiary.findById({ _id: diaryId }).populate({
+    path: "products",
+    model: Product,
+  });
 
-  const result = await ProductsDiary.findOneAndUpdate(
+  const { calories } = productsInfo.products[productIndex];
+
+  products.splice(productIndex, 1)[0];
+
+  const resultAfterUpdate = await ProductsDiary.findOneAndUpdate(
     diaryId,
     {
       $set: { products: products },
       $inc: {
-        totalCalories: -removedProduct.calories,
+        totalCalories: -calories,
       },
     },
     { new: true }
-  );
+  ).populate({
+    path: "products",
+    model: Product,
+  });
 
-  res.json(result);
+  res.json(resultAfterUpdate);
 };
 
 module.exports = deleteEatenProduct;

@@ -1,17 +1,14 @@
-const { ObjectId } = require("bson");
-const { ExerciseDiary } = require("../../models");
+const { ExerciseDiary, Exercise } = require("../../models");
 
 const deleteDoneExercise = async (req, res) => {
   const { _id: ownerId } = req.user;
 
   const { exerciseId, date } = req.body;
 
-  const fixedExerciseId = ObjectId.createFromHexString(exerciseId);
-
   const foundedDiary = await ExerciseDiary.findOne({
     date,
     ownerId,
-    "exercises._id": fixedExerciseId,
+    exercises: { $in: [exerciseId] },
   });
 
   if (!foundedDiary) {
@@ -23,25 +20,35 @@ const deleteDoneExercise = async (req, res) => {
 
   const { _id: diaryId, exercises } = foundedDiary;
 
-  const exerciseIndex = exercises.findIndex((item) =>
-    item._id.equals(fixedExerciseId)
+  const exerciseIndex = exercises.indexOf(exerciseId);
+
+  const exercisesInfo = await ExerciseDiary.findById({ _id: diaryId }).populate(
+    {
+      path: "exercises",
+      model: Exercise,
+    }
   );
 
-  const removedExercise = exercises.splice(exerciseIndex, 1)[0];
+  const { burnedCalories, time } = exercisesInfo.exercises[exerciseIndex];
 
-  const result = await ExerciseDiary.findOneAndUpdate(
+  exercises.splice(exerciseIndex, 1)[0];
+
+  const resultAfterUpdate = await ExerciseDiary.findOneAndUpdate(
     diaryId,
     {
       $set: { exercises: exercises },
       $inc: {
-        burnedCalories: -removedExercise.burnedCalories,
-        totalTime: -removedExercise.time,
+        burnedCalories: -burnedCalories,
+        totalTime: -time,
       },
     },
     { new: true }
-  );
+  ).populate({
+    path: "exercises",
+    model: Exercise,
+  });
 
-  res.json(result);
+  res.json(resultAfterUpdate);
 };
 
 module.exports = deleteDoneExercise;

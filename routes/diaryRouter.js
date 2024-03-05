@@ -31,6 +31,6 @@ diaryRouter.delete("/exercise", authenticate, deleteDoneExercise);
 
 diaryRouter.delete("/product", authenticate, deleteEatenProduct);
 
-diaryRouter.get("/info", authenticate, getInfoForDay);
+diaryRouter.get("/", authenticate, getInfoForDay);
 
 module.exports = diaryRouter;

@@ -49,3 +49,9 @@ module.exports = app;
 // * "/exercises"
 // * "/exercises/params"
 // TODO /statistics
+
+// * post "/diary/product"
+// * delete "/diary/product"
+// * post "/diary/exercise"
+// * delete "/diary/exercise"
+// * get "/diary"
