@@ -15,6 +15,7 @@ const getCurrent = async (req, res) => {
     dpa,
     createdAt,
   } = req.user;
+
   res.json({
     name,
     email,

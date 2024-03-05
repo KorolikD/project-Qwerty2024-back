@@ -26,7 +26,7 @@ const login = async (req, res) => {
     user._id,
     { token },
     { new: true }
-  ).select("-password -token");
+  ).select("-password -token -updatedAt");
 
   res.json({
     token,

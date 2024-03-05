@@ -20,7 +20,9 @@ const updateUser = async (req, res) => {
     { new: true, runValidators: true }
   ).select("-password -updatedAt -token ");
 
-  res.json({ user });
+  res.json({
+    ...user._doc,
+  });
 };
 
 module.exports = updateUser;
