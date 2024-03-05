@@ -1,10 +1,5 @@
 const { aggregateArrayLength, aggregateSum } = require("../../helpers");
-const {
-  Exercise,
-  User,
-  ProductsDiary,
-  ExerciseDiary,
-} = require("../../models");
+const { Exercise, User, ExerciseDiary } = require("../../models");
 
 const getStatistics = async (req, res) => {
   const videosQuantity = await Exercise.countDocuments({
@@ -15,17 +10,24 @@ const getStatistics = async (req, res) => {
     token: { $exists: true, $ne: "" },
   });
 
-  const totalCalories = await aggregateSum(ProductsDiary, "totalCalories");
+  const totalCaloriesBurned = await aggregateSum(
+    ExerciseDiary,
+    "burnedCalories"
+  );
 
   const totalTime = await aggregateSum(ExerciseDiary, "totalTime");
+  const totalWorkoutHours = Math.round(totalTime / 60);
 
-  const totalExercisesQuantity = await aggregateArrayLength(ExerciseDiary, "exercises");
+  const totalExercisesQuantity = await aggregateArrayLength(
+    ExerciseDiary,
+    "exercises"
+  );
 
   res.json({
     videosQuantity,
     usersQuantity,
-    totalCalories,
-    totalTime,
+    totalCaloriesBurned,
+    totalWorkoutHours,
     totalExercisesQuantity,
   });
 };
