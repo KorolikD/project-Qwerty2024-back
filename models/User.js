@@ -37,7 +37,7 @@ const userSchema = new Schema(
     height: {
       type: Number,
       default: null,
-      min: 150,
+      min: 130,
     },
     currentWeight: {
       type: Number,

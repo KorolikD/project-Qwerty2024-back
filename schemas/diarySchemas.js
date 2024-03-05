@@ -7,14 +7,12 @@ const createDiarySchema = Joi.object({});
 const updateDiarySchema = Joi.object({}).or(""); //прописуємо назви полів
 
 const addEatenProductSchema = Joi.object({
-  product: Joi.string().required(),
-  date: Joi.string()
-    .pattern(dateRegexp)
-    .required(),
+  productId: Joi.string().required(),
+  date: Joi.string().pattern(dateRegexp).required(),
 });
 
 const addDoneExerciseSchema = Joi.object({
-  exercise: Joi.string().required(),
+  exerciseId: Joi.string().required(),
   date: Joi.string().pattern(dateRegexp).required(),
 });
 
@@ -24,6 +22,5 @@ module.exports = {
   addEatenProductSchema,
   addDoneExerciseSchema,
 };
-
 
 // Для валідації кидаємо Джой схему в validateBody

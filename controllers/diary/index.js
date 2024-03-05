@@ -2,13 +2,13 @@ const { ctrlWrapper } = require("../../helpers");
 const addDoneExercise = require("./addDoneExercise");
 const addEatenProduct = require("./addEatenProduct");
 const deleteDoneExercise = require("./deleteDoneExercise");
-const deleteProduct = require("./deleteProduct");
+const deleteEatenProduct = require("./deleteEatenProduct");
 const getInfoForDay = require("./getInfoForDay");
 
 module.exports = {
   addEatenProduct: ctrlWrapper(addEatenProduct),
   addDoneExercise: ctrlWrapper(addDoneExercise),
   deleteDoneExercise: ctrlWrapper(deleteDoneExercise),
-  deleteProduct: ctrlWrapper(deleteProduct),
+  deleteEatenProduct: ctrlWrapper(deleteEatenProduct),
   getInfoForDay: ctrlWrapper(getInfoForDay),
 };

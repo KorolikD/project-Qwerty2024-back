@@ -1,46 +1,54 @@
-const { ExerciseDiary } = require("../../models");
-const { ObjectId } = require("bson");
+const { ExerciseDiary, Exercise } = require("../../models");
 
 const deleteDoneExercise = async (req, res) => {
-  const { _id: owner } = req.user;
+  const { _id: ownerId } = req.user;
 
-  const { exercise, date } = req.body;
-  const exerciseId = ObjectId.createFromHexString(exercise);
+  const { exerciseId, date } = req.body;
 
   const foundedDiary = await ExerciseDiary.findOne({
     date,
-    owner,
-    "exercises._id": exerciseId,
+    ownerId,
+    exercises: { $in: [exerciseId] },
   });
 
   if (!foundedDiary) {
     res
-      .status(200)
+      .status(409)
       .json({ message: "You can't delete exercise what you didn't do" });
     return;
   }
 
-  const { _id: id, exercises } = foundedDiary;
+  const { _id: diaryId, exercises } = foundedDiary;
 
-  const exerciseIndex = exercises.findIndex((item) =>
-    item._id.equals(exerciseId)
+  const exerciseIndex = exercises.indexOf(exerciseId);
+
+  const exercisesInfo = await ExerciseDiary.findById({ _id: diaryId }).populate(
+    {
+      path: "exercises",
+      model: Exercise,
+    }
   );
 
-  const removedExercise = exercises.splice(exerciseIndex, 1)[0];
+  const { burnedCalories, time } = exercisesInfo.exercises[exerciseIndex];
 
-  const result = await ExerciseDiary.findOneAndUpdate(
-    id,
+  exercises.splice(exerciseIndex, 1)[0];
+
+  const resultAfterUpdate = await ExerciseDiary.findOneAndUpdate(
+    diaryId,
     {
       $set: { exercises: exercises },
       $inc: {
-        burnedCalories: -removedExercise.burnedCalories,
-        time: -removedExercise.time,
+        burnedCalories: -burnedCalories,
+        totalTime: -time,
       },
     },
     { new: true }
-  );
+  ).populate({
+    path: "exercises",
+    model: Exercise,
+  });
 
-  res.json(result);
+  res.json(resultAfterUpdate);
 };
 
 module.exports = deleteDoneExercise;

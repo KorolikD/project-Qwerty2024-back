@@ -1,39 +1,53 @@
 const { HttpError } = require("../../helpers");
-const { Diary, Product } = require("../../models");
+const { ProductsDiary, Product } = require("../../models");
 
 const addEatenProduct = async (req, res) => {
-  const { _id: owner } = req.user;
+  const { _id: ownerId } = req.user;
 
-  const { product, date } = req.body;
+  const { productId, date } = req.body;
 
-  const productData = await Product.findOne({ _id: product });
-  const {calories} = productData
+  const productData = await Product.findOne({ _id: productId });
+
   if (!productData) {
     throw HttpError(400, "Check productId");
   }
 
-  const foundedDiary = await Diary.findOne({ date, owner });
+  const { calories } = productData;
+
+  const foundedDiary = await ProductsDiary.findOne({ date, ownerId });
 
   if (!foundedDiary) {
-    const newProduct = await Diary.create({
-      owner,
+    const newProductDiary = await ProductsDiary.create({
+      ownerId,
       date,
-      products: productData,
-      calories: calories,
+      products: [productId],
+      totalCalories: calories,
     });
-    res.json(newProduct);
+
+    const populatedResult = await ProductsDiary.findById(
+      newProductDiary._id
+    ).populate({
+      path: "products",
+      model: Product,
+    });
+
+    res.json(populatedResult);
     return;
   }
 
-  const result = await Diary.findByIdAndUpdate(
+  const resultAfterUpdate = await ProductsDiary.findByIdAndUpdate(
     foundedDiary._id,
     {
-      $inc: { calories: +calories },
-      $push: { products: productData },
+      $inc: { totalCalories: +calories },
+      $push: { products: productId },
     },
     { new: true }
-  );
-  res.json(result);
+  ).populate({
+    path: "products",
+    model: Product,
+  });
+
+  res.json(resultAfterUpdate);
 };
 
 module.exports = addEatenProduct;

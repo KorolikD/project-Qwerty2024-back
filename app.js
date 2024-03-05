@@ -47,4 +47,11 @@ module.exports = app;
 // * "/products/categories"
 // * "/products"
 // * "/exercises"
-// * "/exercises/param"
+// * "/exercises/params"
+// TODO /statistics
+
+// * post "/diary/product"
+// * delete "/diary/product"
+// * post "/diary/exercise"
+// * delete "/diary/exercise"
+// * get "/diary"

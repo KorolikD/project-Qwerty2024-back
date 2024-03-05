@@ -1,8 +1,9 @@
 const { Schema, model } = require("mongoose");
+const { Product } = require("./Product");
 
 const dateRegexp = /^\d{2}\/\d{2}\/\d{4}$/;
 
-const ExerciseDiary = new Schema(
+const ProductsDiary = new Schema(
   {
     ownerId: {
       type: Schema.Types.ObjectId,
@@ -15,21 +16,16 @@ const ExerciseDiary = new Schema(
       match: [dateRegexp, "Invalid date format. Please use dd/mm/yyyy"],
     },
 
-    exercises: {
+    products: {
       type: Array,
       productId: {
         type: Schema.Types.ObjectId,
-        ref: "exercises",
+        ref: "products",
       },
       default: [],
     },
 
-    burnedCalories: {
-      type: Number,
-      default: 0,
-    },
-
-    totalTime: {
+    totalCalories: {
       type: Number,
       default: 0,
     },
@@ -37,4 +33,4 @@ const ExerciseDiary = new Schema(
   { versionKey: false, timestamps: false }
 );
 
-module.exports = model("completed-workout", ExerciseDiary);
+module.exports = model("consumed-product", ProductsDiary);
