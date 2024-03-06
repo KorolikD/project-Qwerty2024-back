@@ -1,12 +1,12 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.0.3",
+    "version": "1.0.4",
     "title": "💙💛 PowerPulse",
     "description": "PowerPulse backend",
     "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
+      "name": "GitHub repository",
+      "url": "https://github.com/KorolikD/project-Qwerty2024-back"
     }
   },
   "consumes": ["application/json", "multipart/form-data"],
@@ -79,122 +79,6 @@
           },
           "409": {
             "description": "Provided email already exists",
-            "content": {}
-          },
-          "500": {
-            "description": "Server error",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/users/login": {
-      "post": {
-        "tags": ["Auth"],
-        "summary": "User log in",
-
-        "parameters": [],
-
-        "requestBody": {
-          "description": "Log in object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "401": {
-            "description": "Email or password is wrong",
-            "content": {}
-          },
-          "404": {
-            "description": "Service not found",
-            "content": {}
-          },
-          "500": {
-            "description": "Server error",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/users/logout": {
-      "post": {
-        "tags": ["Auth"],
-        "summary": "User log out",
-
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LogoutResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {}
-          },
-          "404": {
-            "description": "Service not found",
-            "content": {}
-          },
-          "500": {
-            "description": "Server error",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/users/current": {
-      "get": {
-        "tags": ["Auth"],
-        "summary": "Get current user info",
-
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetCurrentUserResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {}
-          },
-          "404": {
-            "description": "Service not found",
             "content": {}
           },
           "500": {
@@ -301,6 +185,122 @@
         }
       }
     },
+    "/users/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User log in",
+
+        "parameters": [],
+
+        "requestBody": {
+          "description": "Log in object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Email or password is wrong",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get current user info",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User log out",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
 
     "/products/categories": {
       "get": {
@@ -336,7 +336,7 @@
         }
       }
     },
-    "/products": {
+    "/products/{category, title, allowed}": {
       "get": {
         "tags": ["Products"],
         "summary": "Get recommended products",
@@ -436,7 +436,7 @@
         }
       }
     },
-    "/exercises/params": {
+    "/exercises/params/{key, value}": {
       "get": {
         "tags": ["Exercises"],
         "summary": "Get exercises by params",
@@ -505,7 +505,7 @@
     "/diary/product": {
       "post": {
         "tags": ["Diary"],
-        "summary": "Update user diary",
+        "summary": "Update user product diary",
 
         "parameters": [],
         "security": [{ "Bearer": [] }],
@@ -516,7 +516,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductDiaryRequest"
+                "$ref": "#/components/schemas/UpdateProductDiaryRequest"
               }
             }
           }
@@ -527,7 +527,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/#"
+                  "$ref": "#/components/schemas/UpdateProductDiaryResponse"
                 }
               }
             }
@@ -547,11 +547,10 @@
         }
       }
     },
-
-    "/diary/exercise": {
-      "post": {
+    "/diary/product/{id, date}": {
+      "delete": {
         "tags": ["Diary"],
-        "summary": "Update user diary",
+        "summary": "Delete user product diary",
 
         "parameters": [],
         "security": [{ "Bearer": [] }],
@@ -562,7 +561,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExerciseDiaryRequest"
+                "$ref": "#/components/schemas/DeleteProductDiaryRequest"
               }
             }
           }
@@ -573,13 +572,145 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/#"
+                  "$ref": "#/components/schemas/DeleteProductDiaryResponse"
                 }
               }
             }
           },
           "400": {
             "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "409": {
+            "description": "You can't delete a product that you haven't consumed",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary/exercise": {
+      "post": {
+        "tags": ["Diary"],
+        "summary": "Update user exercise diary",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Params object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateExerciseDiaryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateExerciseDiaryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary/exercise/{id, date}": {
+      "delete": {
+        "tags": ["Diary"],
+        "summary": "Delete user exercise diary",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Params object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteExerciseDiaryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteExerciseDiaryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Service not found",
+            "content": {}
+          },
+          "409": {
+            "description": "You can't delete an exercise that you haven't done",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary": {
+      "get": {
+        "tags": ["Diary"],
+        "summary": "Get current user diary info",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDiaryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
             "content": {}
           },
           "404": {
@@ -685,233 +816,7 @@
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
         }
       },
-      "-----------------": "-------------------------------------",
-      "LoginRequest": {
-        "type": "object",
-        "required": ["email", "password"],
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "example": "test@gmail.com"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "example123"
-          }
-        }
-      },
-      "LoginResponse": {
-        "type": "object",
-        "properties": {
-          "token": {
-            "type": "string",
-            "description": "User's token(23h)",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
-          },
-          "user": {
-            "type": "object",
-            "properties": {
-              "_id": {
-                "type": "string",
-                "description": "User's id",
-                "example": "65e3d87bc8a84879e6a6f8e0"
-              },
-              "name": {
-                "type": "string",
-                "description": "User's name",
-                "example": "Test Name"
-              },
-              "email": {
-                "type": "string",
-                "description": "User's email",
-                "example": "test@gmail.com"
-              },
-              "avatarURL": {
-                "type": "string",
-                "description": "User's avatar url",
-                "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
-              },
-              "height": {
-                "type": "integer",
-                "description": "User's height",
-                "example": 170
-              },
-              "currentWeight": {
-                "type": "integer",
-                "description": "User's weight",
-                "example": 80
-              },
-              "desiredWeight": {
-                "type": "integer",
-                "description": "User's desired weight",
-                "example": 70
-              },
-              "birthday": {
-                "type": "string",
-                "description": "User's birthday",
-                "example": "1995-05-08T21:00:00.000Z"
-              },
-              "blood": {
-                "type": "integer",
-                "description": "User's blood",
-                "example": 4
-              },
-              "sex": {
-                "type": "string",
-                "description": "User's sex",
-                "example": "male"
-              },
-              "levelActivity": {
-                "type": "integer",
-                "description": "User's level activity",
-                "example": 5
-              },
-              "bmr": {
-                "type": "integer",
-                "description": "User's daily calorie intake",
-                "example": 3282
-              },
-              "dpa": {
-                "type": "integer",
-                "description": "User's daily physical activity",
-                "example": 110
-              },
-              "createdAt": {
-                "type": "string",
-                "description": "User's created date",
-                "example": "2024-03-03T01:55:07.361+00:00"
-              }
-            }
-          }
-        },
-        "example": {
-          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTNkODdiYzhhODQ4NzllNmE2ZjhlMCIsImlhdCI6MTcwOTQzMjI5OSwiZXhwIjoxNzA5NTE1MDk5fQ.bvEU2L1J2FA3__QFTnJfZzrUBIYWXwUTwZH7FSDerfE",
-          "user": {
-            "_id": "65e3d87bc8a84879e6a6f8e0",
-            "name": "Test Name",
-            "email": "test@gmail.com",
-            "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
-            "height": 170,
-            "currentWeight": 80,
-            "desiredWeight": 70,
-            "birthday": "1995-05-08T21:00:00.000Z",
-            "blood": 4,
-            "sex": "male",
-            "levelActivity": 5,
-            "bmr": 3282,
-            "dpa": 110,
-            "createdAt": "2024-03-03T01:55:07.361+00:00"
-          }
-        }
-      },
-      "-------------------": "-------------------------------------",
-      "LogoutResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Logout success",
-            "example": "Logout success"
-          }
-        },
-        "example": { "message": "Logout success" }
-      },
-      "------------------": "-------------------------------------",
-      "GetCurrentUserResponse": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "User's id",
-            "example": "65e3d87bc8a84879e6a6f8e0"
-          },
-          "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "Test Name"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "example": "test@gmail.com"
-          },
-          "avatarURL": {
-            "type": "string",
-            "description": "User's avatar url",
-            "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
-          },
-          "height": {
-            "type": "integer",
-            "description": "User's height",
-            "example": 170
-          },
-          "currentWeight": {
-            "type": "integer",
-            "description": "User's weight",
-            "example": 80
-          },
-          "desiredWeight": {
-            "type": "integer",
-            "description": "User's desired weight",
-            "example": 70
-          },
-          "birthday": {
-            "type": "string",
-            "description": "User's birthday",
-            "example": "1995-05-08T21:00:00.000Z"
-          },
-          "blood": {
-            "type": "integer",
-            "description": "User's blood",
-            "example": 4
-          },
-          "sex": {
-            "type": "string",
-            "description": "User's sex",
-            "example": "male"
-          },
-          "levelActivity": {
-            "type": "integer",
-            "description": "User's level activity",
-            "example": 5
-          },
-          "bmr": {
-            "type": "integer",
-            "description": "User's daily calorie intake",
-            "example": 3282
-          },
-          "dpa": {
-            "type": "integer",
-            "description": "User's daily physical activity",
-            "example": 110
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "User's created date",
-            "example": "2024-03-03T01:55:07.361+00:00"
-          }
-        },
 
-        "example": {
-          "_id": "65e3d87bc8a84879e6a6f8e0",
-          "name": "Test Name",
-          "email": "test@gmail.com",
-          "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
-          "height": 170,
-          "currentWeight": 80,
-          "desiredWeight": 70,
-          "birthday": "1995-05-08T21:00:00.000Z",
-          "blood": 4,
-          "sex": "male",
-          "levelActivity": 5,
-          "bmr": 3282,
-          "dpa": 110,
-          "createdAt": "2024-03-03T01:55:07.361+00:00"
-        }
-      },
-      "----------------------": "-------------------------------------",
       "UpdateUserRequest": {
         "type": "object",
         "required": [
@@ -1077,7 +982,7 @@
           "createdAt": "2024-03-03T01:55:07.361+00:00"
         }
       },
-      "--------------------": "-------------------------------------",
+
       "UpdateAvatarRequest": {
         "type": "object",
         "properties": {
@@ -1101,7 +1006,233 @@
           "avatarURL": "https://res.cloudinary.com/powerpulse/image/upload/v1709475451/avatars/3BJZYEerC4RAWtgvaLICG.jpg.jpg"
         }
       },
-      "---------------------": "-------------------------------------",
+
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "test@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "example123"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token(23h)",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTI4MDFiYjQ4OWUzZDFmMmE2MzNhMiIsImlhdCI6MTcwOTM0Mjc0NywiZXhwIjoxNzA5NDI1NTQ3fQ.4m0X-ZRMCZKDBWcqp03mpwWcrUyjsmmt6J3ieWZe4fE"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e3d87bc8a84879e6a6f8e0"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Test Name"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "test@gmail.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatar url",
+                "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
+              },
+              "height": {
+                "type": "integer",
+                "description": "User's height",
+                "example": 170
+              },
+              "currentWeight": {
+                "type": "integer",
+                "description": "User's weight",
+                "example": 80
+              },
+              "desiredWeight": {
+                "type": "integer",
+                "description": "User's desired weight",
+                "example": 70
+              },
+              "birthday": {
+                "type": "string",
+                "description": "User's birthday",
+                "example": "1995-05-08T21:00:00.000Z"
+              },
+              "blood": {
+                "type": "integer",
+                "description": "User's blood",
+                "example": 4
+              },
+              "sex": {
+                "type": "string",
+                "description": "User's sex",
+                "example": "male"
+              },
+              "levelActivity": {
+                "type": "integer",
+                "description": "User's level activity",
+                "example": 5
+              },
+              "bmr": {
+                "type": "integer",
+                "description": "User's daily calorie intake",
+                "example": 3282
+              },
+              "dpa": {
+                "type": "integer",
+                "description": "User's daily physical activity",
+                "example": 110
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "User's created date",
+                "example": "2024-03-03T01:55:07.361+00:00"
+              }
+            }
+          }
+        },
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTNkODdiYzhhODQ4NzllNmE2ZjhlMCIsImlhdCI6MTcwOTQzMjI5OSwiZXhwIjoxNzA5NTE1MDk5fQ.bvEU2L1J2FA3__QFTnJfZzrUBIYWXwUTwZH7FSDerfE",
+          "user": {
+            "_id": "65e3d87bc8a84879e6a6f8e0",
+            "name": "Test Name",
+            "email": "test@gmail.com",
+            "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
+            "height": 170,
+            "currentWeight": 80,
+            "desiredWeight": 70,
+            "birthday": "1995-05-08T21:00:00.000Z",
+            "blood": 4,
+            "sex": "male",
+            "levelActivity": 5,
+            "bmr": 3282,
+            "dpa": 110,
+            "createdAt": "2024-03-03T01:55:07.361+00:00"
+          }
+        }
+      },
+
+      "GetCurrentUserResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "65e3d87bc8a84879e6a6f8e0"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Test Name"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "test@gmail.com"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar url",
+            "example": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
+          },
+          "height": {
+            "type": "integer",
+            "description": "User's height",
+            "example": 170
+          },
+          "currentWeight": {
+            "type": "integer",
+            "description": "User's weight",
+            "example": 80
+          },
+          "desiredWeight": {
+            "type": "integer",
+            "description": "User's desired weight",
+            "example": 70
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "1995-05-08T21:00:00.000Z"
+          },
+          "blood": {
+            "type": "integer",
+            "description": "User's blood",
+            "example": 4
+          },
+          "sex": {
+            "type": "string",
+            "description": "User's sex",
+            "example": "male"
+          },
+          "levelActivity": {
+            "type": "integer",
+            "description": "User's level activity",
+            "example": 5
+          },
+          "bmr": {
+            "type": "integer",
+            "description": "User's daily calorie intake",
+            "example": 3282
+          },
+          "dpa": {
+            "type": "integer",
+            "description": "User's daily physical activity",
+            "example": 110
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "User's created date",
+            "example": "2024-03-03T01:55:07.361+00:00"
+          }
+        },
+
+        "example": {
+          "_id": "65e3d87bc8a84879e6a6f8e0",
+          "name": "Test Name",
+          "email": "test@gmail.com",
+          "avatarURL": "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
+          "height": 170,
+          "currentWeight": 80,
+          "desiredWeight": 70,
+          "birthday": "1995-05-08T21:00:00.000Z",
+          "blood": 4,
+          "sex": "male",
+          "levelActivity": 5,
+          "bmr": 3282,
+          "dpa": 110,
+          "createdAt": "2024-03-03T01:55:07.361+00:00"
+        }
+      },
+
+      "LogoutResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Logout success",
+            "example": "Logout success"
+          }
+        },
+        "example": { "message": "Logout success" }
+      },
+
       "GetProductsCategoriesResponse": {
         "type": "object",
         "properties": {
@@ -1140,7 +1271,7 @@
           ]
         }
       },
-      "-----------------------": "-------------------------------------",
+
       "GetProductsResponse": {
         "type": "object",
         "properties": {
@@ -1245,7 +1376,7 @@
           "totalPages": 3
         }
       },
-      "-------------------------": "-------------------------------------",
+
       "GetExercisesResponse": {
         "type": "object",
         "properties": {
@@ -1361,7 +1492,7 @@
           ]
         }
       },
-      "------------------------": "-------------------------------------",
+
       "GetExercisesByParamsResponse": {
         "type": "object",
         "properties": {
@@ -1454,7 +1585,6 @@
         }
       },
 
-      "--------------------------": "-------------------------------------",
       "GetStatisticsResponse": {
         "type": "object",
         "properties": {
@@ -1493,29 +1623,28 @@
         }
       },
 
-      "---------------------------": "-------------------------------------",
-      "ProductDiaryRequest": {
+      "UpdateProductDiaryRequest": {
         "type": "object",
         "required": ["productId", "date", "weight", "calories"],
         "properties": {
           "productId": {
             "type": "string",
-            "description": "Product id",
+            "description": "Product's id",
             "example": "5d51694902b2373622ff5b8d"
           },
           "date": {
             "type": "string",
-            "description": "Today",
+            "description": "Date of consumed product",
             "example": "08/03/2024"
           },
           "weight": {
             "type": "integer",
-            "description": "Weight of product",
+            "description": "Consumed product's weight",
             "example": 210
           },
           "calories": {
             "type": "integer",
-            "description": "Total calories",
+            "description": "Total quantity of consumed calories",
             "example": 590
           }
         },
@@ -1526,9 +1655,213 @@
           "calories": 590
         }
       },
+      "UpdateProductDiaryResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Product diary id",
+            "example": "65e7df24440055456700536f"
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "User's id",
+            "example": "65e70eaa9f1e9345d37c664e"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date of consumed product",
+            "example": "08/03/2024"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string",
+                  "description": "Product's id",
+                  "example": "5d51694902b2373622ff5b8d"
+                },
+                "weight": {
+                  "type": "integer",
+                  "description": "Consumed product's weight",
+                  "example": 279
+                },
+                "calories": {
+                  "type": "integer",
+                  "description": "Total quantity of consumed calories",
+                  "example": 279
+                },
+                "_id": {
+                  "type": "string",
+                  "description": "Consumed product's id",
+                  "example": "64f2458d6f67bc34bae4f9ea"
+                }
+              }
+            }
+          },
+          "totalCalories": {
+            "type": "integer",
+            "description": "Total quantity of consumed calories per day",
+            "example": 5
+          }
+        },
+        "example": {
+          "_id": "65e7df24440055456700536f",
+          "ownerId": "65e70eaa9f1e9345d37c664e",
+          "date": "08/03/2024",
+          "products": [
+            {
+              "productId": "5d51694902b2373622ff5b8d",
+              "weight": 210,
+              "calories": 590,
+              "_id": "65e843bf4599a049d000abab"
+            }
+          ],
+          "totalCalories": 590
+        }
+      },
 
-      "----------------------------": "-------------------------------------",
-      "ExerciseDiaryRequest": {
+      "DeleteProductDiaryRequest": {
+        "type": "object",
+        "required": ["consumedProductId", "date"],
+        "properties": {
+          "consumedProductId": {
+            "type": "string",
+            "description": "Consumed product's id",
+            "example": "5d51694902b2373622ff5773"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date of consumed product",
+            "example": "08/03/2024"
+          }
+        },
+        "example": {
+          "consumedProductId": "5d51694902b2373622ff5773",
+          "date": "07/03/2024"
+        }
+      },
+      "DeleteProductDiaryResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Product diary id",
+            "example": "65e7df24440055456700536f"
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "User's id",
+            "example": "65e70eaa9f1e9345d37c664e"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date of consumed product",
+            "example": "08/03/2024"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "object",
+                  "properties": {
+                    "groupBloodNotAllowed": {
+                      "type": "object",
+                      "properties": {
+                        "1": {
+                          "type": "boolean",
+                          "description": "Product allowed for group blood",
+                          "example": "false"
+                        },
+                        "2": {
+                          "type": "boolean",
+                          "description": "Product allowed for group blood",
+                          "example": "false"
+                        },
+                        "3": {
+                          "type": "boolean",
+                          "description": "Product allowed for group blood",
+                          "example": "false"
+                        },
+                        "4": {
+                          "type": "boolean",
+                          "description": "Product allowed for group blood",
+                          "example": "false"
+                        }
+                      }
+                    },
+                    "_id": {
+                      "type": "string",
+                      "description": "Product id",
+                      "example": "5d51694902b2373622ff5b8d"
+                    },
+                    "category": {
+                      "type": "string",
+                      "description": "Product's category",
+                      "example": "fish"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Product's title",
+                      "example": "Pollock in batter"
+                    }
+                  }
+                },
+                "weight": {
+                  "type": "integer",
+                  "description": "Consumed product's weight",
+                  "example": 210
+                },
+                "calories": {
+                  "type": "integer",
+                  "description": "Total quantity of consumed calories",
+                  "example": 590
+                },
+                "_id": {
+                  "type": "string",
+                  "description": "Consumed product's id",
+                  "example": "65e85ebf2d815cd389b0c36c"
+                }
+              }
+            }
+          },
+          "totalCalories": {
+            "type": "integer",
+            "description": "Total quantity of consumed calories per day",
+            "example": 590
+          }
+        },
+        "example": {
+          "_id": "65e7df24440055456700536f",
+          "ownerId": "65e70eaa9f1e9345d37c664e",
+          "date": "08/03/2024",
+          "products": [
+            {
+              "productId": {
+                "groupBloodNotAllowed": {
+                  "1": true,
+                  "2": true,
+                  "3": false,
+                  "4": false
+                },
+                "_id": "5d51694902b2373622ff5b8d",
+                "category": "fish",
+                "title": "Pollock in batter"
+              },
+              "weight": 210,
+              "calories": 590,
+              "_id": "65e85ebf2d815cd389b0c36c"
+            }
+          ],
+          "totalCalories": 590
+        }
+      },
+
+      "UpdateExerciseDiaryRequest": {
         "type": "object",
         "required": ["exerciseId", "date", "time", "burnedCalories"],
         "properties": {
@@ -1539,17 +1872,17 @@
           },
           "date": {
             "type": "string",
-            "description": "Today",
+            "description": "Date of completed exercise",
             "example": "07/03/2024"
           },
           "time": {
             "type": "integer",
-            "description": "Time in minutes",
+            "description": "Total time of the workout in minutes",
             "example": 279
           },
           "burnedCalories": {
             "type": "integer",
-            "description": "Number of burned calories",
+            "description": "Total quantity of burned calories",
             "example": 306
           }
         },
@@ -1558,6 +1891,433 @@
           "date": "07/03/2024",
           "time": 3,
           "burnedCalories": 306
+        }
+      },
+      "UpdateExerciseDiaryResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Exercise diary id",
+            "example": "65e7b92ce7f635b12e1a9234"
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "User's id",
+            "example": "65e70eaa9f1e9345d37c664e"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date of completed exercise",
+            "example": "08/03/2024"
+          },
+          "exercises": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "exerciseId": {
+                  "type": "string",
+                  "description": "Exercise id",
+                  "example": "64f2458d6f67bc34bae4f8cb"
+                },
+                "time": {
+                  "type": "integer",
+                  "description": "Total time of the workout",
+                  "example": 3
+                },
+                "burnedCalories": {
+                  "type": "integer",
+                  "description": "Total quantity of burned calories",
+                  "example": 306
+                },
+                "_id": {
+                  "type": "string",
+                  "description": "Completed exercise id",
+                  "example": "65e7b92ce7f635b12e1a9235"
+                }
+              }
+            }
+          },
+          "burnedCalories": {
+            "type": "integer",
+            "description": "Total quantity of burned calories per day",
+            "example": 306
+          },
+          "totalTime": {
+            "type": "integer",
+            "description": "Total time of the workout per day",
+            "example": 3
+          }
+        },
+        "example": {
+          "_id": "65e7b92ce7f635b12e1a9234",
+          "ownerId": "65e70eaa9f1e9345d37c664e",
+          "date": "08/03/2024",
+          "exercises": [
+            {
+              "exerciseId": "64f2458d6f67bc34bae4f8cb",
+              "time": 3,
+              "burnedCalories": 306,
+              "_id": "65e7b92ce7f635b12e1a9235"
+            }
+          ],
+          "totalTime": 3,
+          "burnedCalories": 306
+        }
+      },
+
+      "DeleteExerciseDiaryRequest": {
+        "type": "object",
+        "required": ["completedWorkoutId", "date"],
+        "properties": {
+          "completedWorkoutId": {
+            "type": "string",
+            "description": "Completed exercise id",
+            "example": "64f2458d6f67bc34bae4f8cb"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date of completed exercise",
+            "example": "07/03/2024"
+          }
+        },
+        "example": {
+          "completedWorkoutId": "64f2458d6f67bc34bae4f8cb",
+          "date": "07/03/2024"
+        }
+      },
+      "DeleteExerciseDiaryResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Exercise diary id",
+            "example": "65e8354609021e23f1b02314"
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "User's id",
+            "example": "65e70eaa9f1e9345d37c664e"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date of completed exercise",
+            "example": "08/03/2024"
+          },
+          "exercises": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "exerciseId": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "Exercise id",
+                      "example": "64f2458d6f67bc34bae4f8cb"
+                    },
+                    "bodyPart": {
+                      "type": "string",
+                      "description": "Body part",
+                      "example": "back"
+                    },
+                    "equipment": {
+                      "type": "string",
+                      "description": "Equipment for workout",
+                      "example": "cable"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Exercise name",
+                      "example": "cable twisting pull"
+                    },
+                    "target": {
+                      "type": "string",
+                      "description": "Muscles part",
+                      "example": "lats"
+                    }
+                  }
+                },
+                "time": {
+                  "type": "integer",
+                  "description": "Total time of the workout",
+                  "example": 3
+                },
+                "burnedCalories": {
+                  "type": "integer",
+                  "description": "Total quantity of burned calories",
+                  "example": 306
+                },
+                "_id": {
+                  "type": "string",
+                  "description": "Completed exercise id",
+                  "example": "65e862512d815cd389b0c37b"
+                }
+              }
+            }
+          },
+          "burnedCalories": {
+            "type": "integer",
+            "description": "Total quantity of burned calories per day",
+            "example": 306
+          },
+          "totalTime": {
+            "type": "integer",
+            "description": "Total time of the workout per day",
+            "example": 3
+          }
+        },
+        "example": {
+          "_id": "65e8354609021e23f1b02314",
+          "ownerId": "65e70eaa9f1e9345d37c664e",
+          "date": "09/03/2024",
+          "exercises": [
+            {
+              "exerciseId": {
+                "_id": "64f2458d6f67bc34bae4f8cb",
+                "bodyPart": "back",
+                "equipment": "cable",
+                "name": "cable twisting pull",
+                "target": "lats"
+              },
+              "time": 3,
+              "burnedCalories": 306,
+              "_id": "65e862512d815cd389b0c37b"
+            }
+          ],
+          "burnedCalories": 306,
+          "totalTime": 3
+        }
+      },
+
+      "GetDiaryResponse": {
+        "type": "object",
+        "properties": {
+          "userProductsDiary": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Product diary id",
+                "example": "65e7b98992647a6eb0d47436"
+              },
+              "ownerId": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e70eaa9f1e9345d37c664e"
+              },
+              "date": {
+                "type": "string",
+                "description": "Date of consumed product",
+                "example": "08/03/2024"
+              },
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "productId": {
+                      "type": "object",
+                      "properties": {
+                        "groupBloodNotAllowed": {
+                          "type": "object",
+                          "properties": {
+                            "1": {
+                              "type": "boolean",
+                              "description": "Product allowed for group blood",
+                              "example": "false"
+                            },
+                            "2": {
+                              "type": "boolean",
+                              "description": "Product allowed for group blood",
+                              "example": "false"
+                            },
+                            "3": {
+                              "type": "boolean",
+                              "description": "Product allowed for group blood",
+                              "example": "false"
+                            },
+                            "4": {
+                              "type": "boolean",
+                              "description": "Product allowed for group blood",
+                              "example": "false"
+                            }
+                          }
+                        },
+                        "_id": {
+                          "type": "string",
+                          "description": "Product id",
+                          "example": "5d51694902b2373622ff5b8d"
+                        },
+                        "category": {
+                          "type": "string",
+                          "description": "Product's category",
+                          "example": "fish"
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": "Product's title",
+                          "example": "Pollock in batter"
+                        }
+                      }
+                    },
+                    "weight": {
+                      "type": "integer",
+                      "description": "Consumed product's weight",
+                      "example": 210
+                    },
+                    "calories": {
+                      "type": "integer",
+                      "description": "Total quantity of consumed calories",
+                      "example": 590
+                    },
+                    "_id": {
+                      "type": "string",
+                      "description": "Consumed product's id",
+                      "example": "65e7b98992647a6eb0d47437"
+                    }
+                  }
+                }
+              },
+              "totalCalories": {
+                "type": "integer",
+                "description": "Total quantity of consumed calories per day",
+                "example": 590
+              }
+            }
+          },
+          "userExercisesDiary": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Exercise diary id",
+                "example": "65e7b92ce7f635b12e1a9234"
+              },
+              "ownerId": {
+                "type": "string",
+                "description": "User's id",
+                "example": "65e70eaa9f1e9345d37c664e"
+              },
+              "date": {
+                "type": "string",
+                "description": "Date of completed exercise",
+                "example": "08/03/2024"
+              },
+              "exercises": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "exerciseId": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "Exercise id",
+                          "example": "64f2458d6f67bc34bae4f8cb"
+                        },
+                        "bodyPart": {
+                          "type": "string",
+                          "description": "Body part",
+                          "example": "back"
+                        },
+                        "equipment": {
+                          "type": "string",
+                          "description": "Equipment for workout",
+                          "example": "cable"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Exercise name",
+                          "example": "cable twisting pull"
+                        },
+                        "target": {
+                          "type": "string",
+                          "description": "Muscles part",
+                          "example": "lats"
+                        }
+                      }
+                    },
+                    "time": {
+                      "type": "integer",
+                      "description": "Total time of the workout",
+                      "example": 3
+                    },
+                    "burnedCalories": {
+                      "type": "integer",
+                      "description": "Total quantity of burned calories",
+                      "example": 306
+                    },
+                    "_id": {
+                      "type": "string",
+                      "description": "Completed exercise id",
+                      "example": "65e862512d815cd389b0c37b"
+                    }
+                  }
+                }
+              },
+              "burnedCalories": {
+                "type": "integer",
+                "description": "Total quantity of burned calories per day",
+                "example": 306
+              },
+              "totalTime": {
+                "type": "integer",
+                "description": "Total time of the workout per day",
+                "example": 3
+              }
+            }
+          }
+        },
+        "example": {
+          "userProductsDiary": {
+            "_id": "65e7b98992647a6eb0d47436",
+            "ownerId": "65e70eaa9f1e9345d37c664e",
+            "date": "08/03/2024",
+            "products": [
+              {
+                "productId": {
+                  "groupBloodNotAllowed": {
+                    "1": false,
+                    "2": false,
+                    "3": false,
+                    "4": false
+                  },
+                  "_id": "5d51694902b2373622ff5b8d",
+                  "category": "fish",
+                  "title": "Pollock in batter"
+                },
+                "weight": 210,
+                "calories": 590,
+                "_id": "65e7b98992647a6eb0d47437"
+              }
+            ],
+            "totalCalories": 590
+          },
+          "userExercisesDiary": {
+            "_id": "65e7b92ce7f635b12e1a9234",
+            "ownerId": "65e70eaa9f1e9345d37c664e",
+            "date": "08/03/2024",
+            "exercises": [
+              {
+                "exerciseId": {
+                  "_id": "64f2458d6f67bc34bae4f8cb",
+                  "bodyPart": "back",
+                  "equipment": "cable",
+                  "name": "cable twisting pull",
+                  "target": "lats"
+                },
+                "time": 3,
+                "burnedCalories": 306,
+                "_id": "65e7b92ce7f635b12e1a9235"
+              }
+            ],
+            "burnedCalories": 306,
+            "totalTime": 3
+          }
         }
       }
     },
