@@ -547,7 +547,7 @@
         }
       }
     },
-    "/diary/product/{}": {
+    "/diary/product/delete": {
       "delete": {
         "tags": ["Diary"],
         "summary": "Delete user product diary",
@@ -641,7 +641,7 @@
         }
       }
     },
-    "/diary/exercise/{}": {
+    "/diary/exercise/delete": {
       "delete": {
         "tags": ["Diary"],
         "summary": "Delete user exercise diary",
