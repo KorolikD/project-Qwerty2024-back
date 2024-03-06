@@ -2,11 +2,6 @@ const Joi = require("joi");
 
 const dateRegexp = /^\d{2}\/\d{2}\/\d{4}$/;
 
-// const createDiarySchema = Joi.object({});
-
-// const updateDiarySchema = Joi.object({}).or(""); //прописуємо назви полів
-
-// !Продукти
 const addEatenProductSchema = Joi.object({
   productId: Joi.string().required(),
   date: Joi.string().pattern(dateRegexp).required(),
@@ -14,7 +9,11 @@ const addEatenProductSchema = Joi.object({
   calories: Joi.number().required(),
 });
 
-// !Вправи
+const deleteEatenProductSchema = Joi.object({
+  consumedProductId: Joi.string().required(),
+  date: Joi.string().pattern(dateRegexp).required(),
+});
+
 const addDoneExerciseSchema = Joi.object({
   exerciseId: Joi.string().required(),
   date: Joi.string().pattern(dateRegexp).required(),
@@ -22,11 +21,14 @@ const addDoneExerciseSchema = Joi.object({
   burnedCalories: Joi.number().required(),
 });
 
-module.exports = {
-  // createDiarySchema,
-  // updateDiarySchema,
-  addEatenProductSchema,
-  addDoneExerciseSchema,
-};
+const deleteDoneExerciseSchema = Joi.object({
+  completedWorkoutId: Joi.string().required(),
+  date: Joi.string().pattern(dateRegexp).required(),
+});
 
-// Для валідації кидаємо Джой схему в validateBody
+module.exports = {
+  addEatenProductSchema,
+  deleteEatenProductSchema,
+  addDoneExerciseSchema,
+  deleteDoneExerciseSchema,
+};

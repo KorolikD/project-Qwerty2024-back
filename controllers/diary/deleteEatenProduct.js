@@ -1,13 +1,10 @@
 const { ProductsDiary, Product } = require("../../models");
 
 const deleteEatenProduct = async (req, res) => {
-  // * беремо ІД авторизованого юзера
   const { _id: ownerId } = req.user;
 
-  // * Забираємо дані з тіла запиту
   const { consumedProductId, date } = req.body;
 
-  // * Шукаємо щоденник за день в базі із збігом по ід
   const foundedDiary = await ProductsDiary.findOne({
     date,
     ownerId,
@@ -21,12 +18,10 @@ const deleteEatenProduct = async (req, res) => {
     return;
   }
 
-  // * Знаходимо запис який відповідає нашій ІД і витягуємо з нього калорії
   const { calories } = foundedDiary.products.find((record) => {
     return record._id.toString() === consumedProductId;
   });
 
-  // * Оновлюємо дані
   const resultAfterUpdate = await ProductsDiary.findOneAndUpdate(
     {
       ownerId,

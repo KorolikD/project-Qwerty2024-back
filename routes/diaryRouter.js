@@ -6,7 +6,12 @@ const {
   getInfoForDay,
 } = require("../controllers/diary");
 const { validateBody, isValidId, authenticate } = require("../middlewares");
-const { addEatenProductSchema, addDoneExerciseSchema } = require("../schemas");
+const {
+  addEatenProductSchema,
+  addDoneExerciseSchema,
+  deleteDoneExerciseSchema,
+  deleteEatenProductSchema,
+} = require("../schemas");
 
 const diaryRouter = require("express").Router();
 
@@ -14,19 +19,33 @@ diaryRouter.post(
   "/product",
   authenticate,
   validateBody(addEatenProductSchema),
+  isValidId,
   addEatenProduct
+);
+
+diaryRouter.delete(
+  "/product",
+  authenticate,
+  validateBody(deleteEatenProductSchema),
+  isValidId,
+  deleteEatenProduct
 );
 
 diaryRouter.post(
   "/exercise",
   authenticate,
   validateBody(addDoneExerciseSchema),
+  isValidId,
   addDoneExercise
 );
 
-diaryRouter.delete("/exercise", authenticate, deleteDoneExercise);
-
-diaryRouter.delete("/product", authenticate, deleteEatenProduct);
+diaryRouter.delete(
+  "/exercise",
+  authenticate,
+  validateBody(deleteDoneExerciseSchema),
+  isValidId,
+  deleteDoneExercise
+);
 
 diaryRouter.get("/", authenticate, getInfoForDay);
 
