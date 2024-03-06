@@ -27,8 +27,8 @@ const getInfoForDay = async (req, res) => {
   }
 
   res.json({
-    foundExercises,
-    foundProducts,
+    userProductsDiary: foundProducts,
+    userExercisesDiary: foundExercises,
   });
 };
 
