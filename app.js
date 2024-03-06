@@ -37,29 +37,3 @@ app.use(urlNotFound);
 app.use(errorHandler);
 
 module.exports = app;
-
-// ? Auth
-// * "/users/login";
-// * "/users/register";
-// * "/users/logout";
-// * "/users/current";
-// * "/users/params";
-// * "/users/avatar"
-
-// ? Products
-// * "/products/categories
-// * "/products
-
-// ? Exercises
-// * "/exercises"
-// * "/exercises/params"
-
-// ? Diary
-// ! post "/diary/product"
-// ! delete "/diary/product"
-// ! post "/diary/exercise"
-// ! delete "/diary/exercise"
-// ! get "/diary"
-
-// ? Statistics
-// ! /statistics

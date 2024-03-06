@@ -2,52 +2,52 @@ const { HttpError } = require("../../helpers");
 const { ProductsDiary, Product } = require("../../models");
 
 const addEatenProduct = async (req, res) => {
+  // * беремо ІД авторизованого юзера
   const { _id: ownerId } = req.user;
 
-  const { productId, date } = req.body;
+  // * Забираємо дані з тіла запиту
+  const { productId, date, weight, calories } = req.body;
 
+  // * Шукаємо продукт в базі
   const productData = await Product.findOne({ _id: productId });
 
+  // * Якщо нема помилка
   if (!productData) {
     throw HttpError(400, "Check productId");
   }
 
-  const { calories } = productData;
-
+  // * Шукаємо об'єкт в ProductsDiary по ключам дати та власника
   const foundedDiary = await ProductsDiary.findOne({ date, ownerId });
 
+  // * Формуємо тіло запису
+  const newUserProductTemplate = {
+    ownerId,
+    date,
+    products: [{ productId, weight, calories }],
+    totalCalories: calories,
+  };
+
+  // * Якщо немає створюємо новий
   if (!foundedDiary) {
-    const newProductDiary = await ProductsDiary.create({
-      ownerId,
-      date,
-      products: [productId],
-      totalCalories: calories,
-    });
+    const usersConsumedProduct = await ProductsDiary.create(
+      newUserProductTemplate
+    );
 
-    const populatedResult = await ProductsDiary.findById(
-      newProductDiary._id
-    ).populate({
-      path: "products",
-      model: Product,
-    });
-
-    res.json(populatedResult);
+    res.json(usersConsumedProduct);
     return;
   }
 
-  const resultAfterUpdate = await ProductsDiary.findByIdAndUpdate(
+  // * Якщо є допиши існуючий запис даними
+  const updatedUserProductDiary = await ProductsDiary.findByIdAndUpdate(
     foundedDiary._id,
     {
       $inc: { totalCalories: +calories },
-      $push: { products: productId },
+      $push: { products: { productId, weight, calories } },
     },
     { new: true }
-  ).populate({
-    path: "products",
-    model: Product,
-  });
+  );
 
-  res.json(resultAfterUpdate);
+  res.json(updatedUserProductDiary);
 };
 
 module.exports = addEatenProduct;

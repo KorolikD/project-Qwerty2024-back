@@ -2,53 +2,58 @@ const { HttpError } = require("../../helpers");
 const { ExerciseDiary, Exercise } = require("../../models");
 
 const addDoneExercise = async (req, res) => {
+  // * беремо ІД авторизованого юзера
   const { _id: ownerId } = req.user;
 
-  const { exerciseId, date } = req.body;
+  // * Забираємо дані з тіла запиту
+  const { exerciseId, date, time, burnedCalories } = req.body;
 
+  // * Шукаємо вправу в базі
   const exerciseData = await Exercise.findOne({ _id: exerciseId });
 
+  // * Якщо нема помилка
   if (!exerciseData) {
     throw HttpError(400, "Check exerciseId");
   }
 
-  const { burnedCalories, time } = exerciseData;
-
+  // * Шукаємо об'єкт в ExerciseDiary по ключам дати та власника
   const foundedDiary = await ExerciseDiary.findOne({ date, ownerId });
 
+  // * Формуємо тіло запису
+  const newUserWorkoutTemplate = {
+    ownerId,
+    date,
+    exercises: [{ exerciseId, time, burnedCalories }],
+    burnedCalories,
+    totalTime: time,
+  };
+
+  // * Якщо немає створюємо новий
   if (!foundedDiary) {
-    const newExercise = await ExerciseDiary.create({
-      ownerId,
-      date,
-      exercises: [exerciseId],
-      burnedCalories: burnedCalories,
-      totalTime: time,
-    });
+    const userCompletedWorkout = await ExerciseDiary.create(
+      newUserWorkoutTemplate
+    );
 
-    const populatedResult = await ExerciseDiary.findById(
-      newExercise._id
-    ).populate({
-      path: "exercises",
-      model: Exercise,
-    });
-
-    res.json(populatedResult);
+    res.json(userCompletedWorkout);
     return;
   }
-
-  const resultAfterUpdate = await ExerciseDiary.findByIdAndUpdate(
+  // * Якщо є допиши існуючий запис даними
+  const upDateUserExerciseDiary = await ExerciseDiary.findByIdAndUpdate(
     foundedDiary._id,
     {
       $inc: { burnedCalories: +burnedCalories, totalTime: +time },
-      $push: { exercises: exerciseId },
+      $push: {
+        exercises: {
+          exerciseId,
+          time,
+          burnedCalories,
+        },
+      },
     },
     { new: true }
-  ).populate({
-    path: "exercises",
-    model: Exercise,
-  });
+  );
 
-  res.json(resultAfterUpdate);
+  res.json(upDateUserExerciseDiary);
 };
 
 module.exports = addDoneExercise;

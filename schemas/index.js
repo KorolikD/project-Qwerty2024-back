@@ -1,10 +1,12 @@
-const { createDiarySchema, updateDiarySchema } = require("./diarySchemas");
-
+const {
+  addEatenProductSchema,
+  addDoneExerciseSchema,
+} = require("./diarySchemas");
 const { registerSchema, loginSchema, updateSchema } = require("./authSchemas");
 
 module.exports = {
-  createDiarySchema,
-  updateDiarySchema,
+  addEatenProductSchema,
+  addDoneExerciseSchema,
   registerSchema,
   loginSchema,
   updateSchema,
