@@ -336,7 +336,7 @@
         }
       }
     },
-    "/products/{category, title, allowed}": {
+    "/products": {
       "get": {
         "tags": ["Products"],
         "summary": "Get recommended products",
@@ -436,7 +436,7 @@
         }
       }
     },
-    "/exercises/params/{key, value}": {
+    "/exercises/params": {
       "get": {
         "tags": ["Exercises"],
         "summary": "Get exercises by params",
@@ -547,7 +547,7 @@
         }
       }
     },
-    "/diary/product/{id, date}": {
+    "/diary/product/{}": {
       "delete": {
         "tags": ["Diary"],
         "summary": "Delete user product diary",
@@ -641,7 +641,7 @@
         }
       }
     },
-    "/diary/exercise/{id, date}": {
+    "/diary/exercise/{}": {
       "delete": {
         "tags": ["Diary"],
         "summary": "Delete user exercise diary",
@@ -695,7 +695,15 @@
         "tags": ["Diary"],
         "summary": "Get current user diary info",
 
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "Date of users diary in dd/mm/yyyy format"
+          }
+        ],
         "security": [{ "Bearer": [] }],
 
         "responses": {
@@ -1585,44 +1593,6 @@
         }
       },
 
-      "GetStatisticsResponse": {
-        "type": "object",
-        "properties": {
-          "videosQuantity": {
-            "type": "integer",
-            "description": "Total number of workout videos on the website",
-            "example": 1324
-          },
-          "usersQuantity": {
-            "type": "integer",
-            "description": "Total number of users on the website",
-            "example": 17
-          },
-          "totalCaloriesBurned": {
-            "type": "integer",
-            "description": "Total calories burned of all users",
-            "example": 10404
-          },
-          "totalWorkoutHours": {
-            "type": "integer",
-            "description": "Total workout hours of all users",
-            "example": 2
-          },
-          "totalExercisesQuantity": {
-            "type": "integer",
-            "description": "Total number of workouts completed by users",
-            "example": 34
-          }
-        },
-        "example": {
-          "videosQuantity": 1324,
-          "usersQuantity": 17,
-          "totalCaloriesBurned": 10404,
-          "totalWorkoutHours": 2,
-          "totalExercisesQuantity": 34
-        }
-      },
-
       "UpdateProductDiaryRequest": {
         "type": "object",
         "required": ["productId", "date", "weight", "calories"],
@@ -1740,7 +1710,7 @@
         },
         "example": {
           "consumedProductId": "5d51694902b2373622ff5773",
-          "date": "07/03/2024"
+          "date": "08/03/2024"
         }
       },
       "DeleteProductDiaryResponse": {
@@ -1873,7 +1843,7 @@
           "date": {
             "type": "string",
             "description": "Date of completed exercise",
-            "example": "07/03/2024"
+            "example": "08/03/2024"
           },
           "time": {
             "type": "integer",
@@ -1888,7 +1858,7 @@
         },
         "example": {
           "exerciseId": "64f2458d6f67bc34bae4f8cb",
-          "date": "07/03/2024",
+          "date": "08/03/2024",
           "time": 3,
           "burnedCalories": 306
         }
@@ -1979,12 +1949,12 @@
           "date": {
             "type": "string",
             "description": "Date of completed exercise",
-            "example": "07/03/2024"
+            "example": "08/03/2024"
           }
         },
         "example": {
           "completedWorkoutId": "64f2458d6f67bc34bae4f8cb",
-          "date": "07/03/2024"
+          "date": "08/03/2024"
         }
       },
       "DeleteExerciseDiaryResponse": {
@@ -2072,7 +2042,7 @@
         "example": {
           "_id": "65e8354609021e23f1b02314",
           "ownerId": "65e70eaa9f1e9345d37c664e",
-          "date": "09/03/2024",
+          "date": "08/03/2024",
           "exercises": [
             {
               "exerciseId": {
@@ -2318,6 +2288,44 @@
             "burnedCalories": 306,
             "totalTime": 3
           }
+        }
+      },
+
+      "GetStatisticsResponse": {
+        "type": "object",
+        "properties": {
+          "videosQuantity": {
+            "type": "integer",
+            "description": "Total number of workout videos on the website",
+            "example": 1324
+          },
+          "usersQuantity": {
+            "type": "integer",
+            "description": "Total number of users on the website",
+            "example": 17
+          },
+          "totalCaloriesBurned": {
+            "type": "integer",
+            "description": "Total calories burned of all users",
+            "example": 10404
+          },
+          "totalWorkoutHours": {
+            "type": "integer",
+            "description": "Total workout hours of all users",
+            "example": 2
+          },
+          "totalExercisesQuantity": {
+            "type": "integer",
+            "description": "Total number of workouts completed by users",
+            "example": 34
+          }
+        },
+        "example": {
+          "videosQuantity": 1324,
+          "usersQuantity": 17,
+          "totalCaloriesBurned": 10404,
+          "totalWorkoutHours": 2,
+          "totalExercisesQuantity": 34
         }
       }
     },
