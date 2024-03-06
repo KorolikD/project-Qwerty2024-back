@@ -24,7 +24,7 @@ diaryRouter.post(
 );
 
 diaryRouter.delete(
-  "/product",
+  "/product/delete",
   authenticate,
   validateBody(deleteEatenProductSchema),
   isValidId,
@@ -40,7 +40,7 @@ diaryRouter.post(
 );
 
 diaryRouter.delete(
-  "/exercise",
+  "/exercise/delete",
   authenticate,
   validateBody(deleteDoneExerciseSchema),
   isValidId,
