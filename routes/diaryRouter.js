@@ -6,24 +6,21 @@ const {
   getInfoForDay,
 } = require("../controllers/diary");
 const { validateBody, isValidId, authenticate } = require("../middlewares");
-const {
-  addEatenProductSchema,
-  addDoneExerciseSchema,
-} = require("../schemas/diarySchemas");
+const { addEatenProductSchema, addDoneExerciseSchema } = require("../schemas");
 
 const diaryRouter = require("express").Router();
 
 diaryRouter.post(
   "/product",
-  validateBody(addEatenProductSchema),
   authenticate,
+  validateBody(addEatenProductSchema),
   addEatenProduct
 );
 
 diaryRouter.post(
   "/exercise",
-  validateBody(addDoneExerciseSchema),
   authenticate,
+  validateBody(addDoneExerciseSchema),
   addDoneExercise
 );
 

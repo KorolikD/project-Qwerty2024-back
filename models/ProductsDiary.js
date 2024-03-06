@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const { Product } = require("./Product");
 
 const dateRegexp = /^\d{2}\/\d{2}\/\d{4}$/;
 
@@ -18,14 +17,9 @@ const ProductsDiary = new Schema(
 
     products: [
       {
-        // _id: {
-        //   type: Schema.Types.ObjectId,
-        //   required: true,
-        // },
-
         productId: {
           type: Schema.Types.ObjectId,
-          ref: "products",
+          ref: "product",
           required: [true, "Provide the productId"],
         },
 

@@ -13,12 +13,12 @@ const getInfoForDay = async (req, res) => {
   const foundProducts = await ProductsDiary.findOne({
     ownerId,
     date,
-  }).populate({ path: "products", model: Product });
+  }).populate("products.productId", "title category groupBloodNotAllowed");
 
   const foundExercises = await ExerciseDiary.findOne({
     ownerId,
     date,
-  }).populate({ path: "exercises", model: Exercise });
+  }).populate("exercises.exerciseId", "bodyPart equipment name target");
 
   if (!foundProducts && !foundExercises) {
     return res

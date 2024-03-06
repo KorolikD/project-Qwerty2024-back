@@ -17,15 +17,26 @@ const ExerciseDiary = new Schema(
 
     exercises: [
       {
-        // _id: {
-        //   type: Schema.Types.ObjectId,
-        //   required: true,
-        // },
-
         exerciseId: {
           type: Schema.Types.ObjectId,
-          ref: "exercises",
+          ref: "exercise",
           required: [true, "Provide the exerciseId"],
+        },
+
+        bodyPart: {
+          type: String,
+        },
+
+        equipment: {
+          type: String,
+        },
+
+        name: {
+          type: String,
+        },
+
+        target: {
+          type: String,
         },
 
         time: {

@@ -1,49 +1,50 @@
 const { ProductsDiary, Product } = require("../../models");
 
 const deleteEatenProduct = async (req, res) => {
+  // * беремо ІД авторизованого юзера
   const { _id: ownerId } = req.user;
 
-  const { productId, date } = req.body;
+  // * Забираємо дані з тіла запиту
+  const { consumedProductId, date } = req.body;
 
+  // * Шукаємо щоденник за день в базі із збігом по ід
   const foundedDiary = await ProductsDiary.findOne({
     date,
     ownerId,
-    products: { $in: [productId] },
+    "products._id": consumedProductId,
   });
 
   if (!foundedDiary) {
-    res
-      .status(409)
-      .json({ message: "You can't delete product what you didn't eat" });
+    res.status(409).json({
+      message: "You can't delete a product that you haven't consumed",
+    });
     return;
   }
 
-  const { _id: diaryId, products } = foundedDiary;
-
-  const productIndex = products.indexOf(productId);
-
-  const productsInfo = await ProductsDiary.findById({ _id: diaryId }).populate({
-    path: "products",
-    model: Product,
+  // * Знаходимо запис який відповідає нашій ІД і витягуємо з нього калорії
+  const { calories } = foundedDiary.products.find((record) => {
+    return record._id.toString() === consumedProductId;
   });
 
-  const { calories } = productsInfo.products[productIndex];
-
-  products.splice(productIndex, 1)[0];
-
+  // * Оновлюємо дані
   const resultAfterUpdate = await ProductsDiary.findOneAndUpdate(
-    diaryId,
     {
-      $set: { products: products },
+      ownerId,
+      date,
+      "products._id": consumedProductId,
+    },
+    {
       $inc: {
         totalCalories: -calories,
       },
+      $pull: {
+        products: {
+          _id: consumedProductId,
+        },
+      },
     },
     { new: true }
-  ).populate({
-    path: "products",
-    model: Product,
-  });
+  ).populate("products.productId", "title category groupBloodNotAllowed");
 
   res.json(resultAfterUpdate);
 };
