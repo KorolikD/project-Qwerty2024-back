@@ -547,25 +547,29 @@
         }
       }
     },
-    "/diary/product/delete": {
+    "/diary/product/{consumedProductId}": {
       "delete": {
         "tags": ["Diary"],
         "summary": "Delete user product diary",
 
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "consumedProductId",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "Consumed product's id"
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "Date of consumed product in dd/mm/yyyy format"
+          }
+        ],
         "security": [{ "Bearer": [] }],
 
-        "requestBody": {
-          "description": "Params object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteProductDiaryRequest"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -641,25 +645,29 @@
         }
       }
     },
-    "/diary/exercise/delete": {
+    "/diary/exercise/{completedWorkoutId}": {
       "delete": {
         "tags": ["Diary"],
         "summary": "Delete user exercise diary",
 
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "completedWorkoutId",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "Completed exercise id"
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "schema": { "type": "string" },
+            "required": true,
+            "description": "Date of completed exercise in dd/mm/yyyy format"
+          }
+        ],
         "security": [{ "Bearer": [] }],
 
-        "requestBody": {
-          "description": "Params object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteExerciseDiaryRequest"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -1693,26 +1701,6 @@
         }
       },
 
-      "DeleteProductDiaryRequest": {
-        "type": "object",
-        "required": ["consumedProductId", "date"],
-        "properties": {
-          "consumedProductId": {
-            "type": "string",
-            "description": "Consumed product's id",
-            "example": "5d51694902b2373622ff5773"
-          },
-          "date": {
-            "type": "string",
-            "description": "Date of consumed product",
-            "example": "08/03/2024"
-          }
-        },
-        "example": {
-          "consumedProductId": "5d51694902b2373622ff5773",
-          "date": "08/03/2024"
-        }
-      },
       "DeleteProductDiaryResponse": {
         "type": "object",
         "properties": {
@@ -1937,26 +1925,6 @@
         }
       },
 
-      "DeleteExerciseDiaryRequest": {
-        "type": "object",
-        "required": ["completedWorkoutId", "date"],
-        "properties": {
-          "completedWorkoutId": {
-            "type": "string",
-            "description": "Completed exercise id",
-            "example": "64f2458d6f67bc34bae4f8cb"
-          },
-          "date": {
-            "type": "string",
-            "description": "Date of completed exercise",
-            "example": "08/03/2024"
-          }
-        },
-        "example": {
-          "completedWorkoutId": "64f2458d6f67bc34bae4f8cb",
-          "date": "08/03/2024"
-        }
-      },
       "DeleteExerciseDiaryResponse": {
         "type": "object",
         "properties": {
