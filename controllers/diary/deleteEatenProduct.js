@@ -1,9 +1,16 @@
+const { HttpError } = require("../../helpers");
 const { ProductsDiary, Product } = require("../../models");
 
 const deleteEatenProduct = async (req, res) => {
   const { _id: ownerId } = req.user;
 
-  const { consumedProductId, date } = req.body;
+  const { consumedProductId } = req.params;
+
+  const { date } = req.query;
+
+  if (!date) {
+    throw HttpError(400, "Provide date in dd/mm/yyyy format");
+  }
 
   const foundedDiary = await ProductsDiary.findOne({
     date,

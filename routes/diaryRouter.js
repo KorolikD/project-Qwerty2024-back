@@ -6,12 +6,7 @@ const {
   getInfoForDay,
 } = require("../controllers/diary");
 const { validateBody, isValidId, authenticate } = require("../middlewares");
-const {
-  addEatenProductSchema,
-  addDoneExerciseSchema,
-  deleteDoneExerciseSchema,
-  deleteEatenProductSchema,
-} = require("../schemas");
+const { addEatenProductSchema, addDoneExerciseSchema } = require("../schemas");
 
 const diaryRouter = require("express").Router();
 
@@ -24,9 +19,8 @@ diaryRouter.post(
 );
 
 diaryRouter.delete(
-  "/product/delete",
+  "/product/:consumedProductId",
   authenticate,
-  validateBody(deleteEatenProductSchema),
   isValidId,
   deleteEatenProduct
 );
@@ -40,9 +34,8 @@ diaryRouter.post(
 );
 
 diaryRouter.delete(
-  "/exercise/delete",
+  "/exercise/:completedWorkoutId",
   authenticate,
-  validateBody(deleteDoneExerciseSchema),
   isValidId,
   deleteDoneExercise
 );

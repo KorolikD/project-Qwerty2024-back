@@ -1,9 +1,16 @@
+const { HttpError } = require("../../helpers");
 const { ExerciseDiary, Exercise } = require("../../models");
 
 const deleteDoneExercise = async (req, res) => {
   const { _id: ownerId } = req.user;
 
-  const { completedWorkoutId, date } = req.body;
+  const { completedWorkoutId } = req.params;
+
+  const { date } = req.query;
+
+  if (!date) {
+    throw HttpError(400, "Provide date in dd/mm/yyyy format");
+  }
 
   const foundedDiary = await ExerciseDiary.findOne({
     date,
