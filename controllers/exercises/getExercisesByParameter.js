@@ -10,7 +10,7 @@ const getExercisesByParameter = async (req, res) => {
 
   const result = await Exercise.paginate(
     { [key]: value },
-    { page: pageNumber || 1, limit: pageSize || 30 }
+    { page: pageNumber || 1, limit: pageSize || 18 }
   );
 
   const { docs, totalDocs, limit, page, totalPages } = result;

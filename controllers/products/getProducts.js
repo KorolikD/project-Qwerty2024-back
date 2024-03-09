@@ -14,7 +14,7 @@ const getProducts = async (req, res) => {
 
   const result = await Product.paginate(query, {
     page: pageNumber || 1,
-    limit: pageSize || 30,
+    limit: pageSize || 18,
   });
 
   const { docs, totalDocs, limit, page, totalPages } = result;
