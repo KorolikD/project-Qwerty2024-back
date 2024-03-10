@@ -565,7 +565,7 @@
             "name": "date",
             "schema": { "type": "string" },
             "required": true,
-            "description": "Date of consumed product in dd/mm/yyyy format"
+            "description": "Date of consumed product in dd/mm/YYYY format"
           }
         ],
         "security": [{ "Bearer": [] }],
@@ -663,7 +663,7 @@
             "name": "date",
             "schema": { "type": "string" },
             "required": true,
-            "description": "Date of completed exercise in dd/mm/yyyy format"
+            "description": "Date of completed exercise in dd/mm/YYYY format"
           }
         ],
         "security": [{ "Bearer": [] }],
@@ -709,7 +709,7 @@
             "name": "date",
             "schema": { "type": "string" },
             "required": true,
-            "description": "Date of users diary in dd/mm/yyyy format"
+            "description": "Date of users diary in dd/mm/YYYY format"
           }
         ],
         "security": [{ "Bearer": [] }],
