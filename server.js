@@ -1,5 +1,6 @@
+const colors = require("colors");
 const app = require("./app");
-const connectDB = require("./config");
+const { connectDB } = require("./config");
 
 const { DB_HOST, PORT = 3000 } = process.env;
 

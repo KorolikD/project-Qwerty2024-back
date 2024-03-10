@@ -1,5 +1,3 @@
-const colors = require("colors");
-
 const path = require("path");
 const configPath = path.join(__dirname, "config", ".env");
 require("dotenv").config({ path: configPath });

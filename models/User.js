@@ -1,11 +1,5 @@
 const { Schema, model } = require("mongoose");
-
-const Regexps = { EMAIL: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/ };
-const Enums = {
-  BLOOD: [1, 2, 3, 4],
-  SEX: ["male", "female"],
-  LEVEL_ACTIVITY: [1, 2, 3, 4, 5],
-};
+const { Regexps, Enums } = require("../config");
 
 const userSchema = new Schema(
   {
@@ -37,7 +31,7 @@ const userSchema = new Schema(
     height: {
       type: Number,
       default: null,
-      min: 130,
+      min: 150,
     },
     currentWeight: {
       type: Number,

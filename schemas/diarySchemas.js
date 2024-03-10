@@ -1,19 +1,24 @@
 const Joi = require("joi");
-
-const dateRegexp = /^\d{2}\/\d{2}\/\d{4}$/;
+const { Regexps } = require("../config");
 
 const addEatenProductSchema = Joi.object({
   productId: Joi.string().required(),
-  date: Joi.string().pattern(dateRegexp).required(),
-  weight: Joi.number().required(),
-  calories: Joi.number().required(),
+  date: Joi.string().pattern(Regexps.DATE).required().messages({
+    "string.pattern.base":
+      "{{#label}} with value {:[.]} fails to match the required pattern: 01/01/2024",
+  }),
+  weight: Joi.number().min(1).required(),
+  calories: Joi.number().min(1).required(),
 });
 
 const addDoneExerciseSchema = Joi.object({
   exerciseId: Joi.string().required(),
-  date: Joi.string().pattern(dateRegexp).required(),
-  time: Joi.number().required(),
-  burnedCalories: Joi.number().required(),
+  date: Joi.string().pattern(Regexps.DATE).required().messages({
+    "string.pattern.base":
+      "{{#label}} with value {:[.]} fails to match the required pattern: 01/01/2024",
+  }),
+  time: Joi.number().min(1).required(),
+  burnedCalories: Joi.number().min(1).required(),
 });
 
 module.exports = {

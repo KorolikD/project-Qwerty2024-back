@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const dateRegexp = /^\d{2}\/\d{2}\/\d{4}$/;
+const { Regexps } = require("../config");
 
 const ExerciseDiary = new Schema(
   {
@@ -12,7 +12,7 @@ const ExerciseDiary = new Schema(
     date: {
       type: String,
       required: [true, "Provide date"],
-      match: [dateRegexp, "Invalid date format. Please use dd/mm/yyyy"],
+      match: [Regexps.DATE, "Invalid date format. Please use dd/mm/YYYY"],
     },
 
     exercises: [
@@ -23,29 +23,16 @@ const ExerciseDiary = new Schema(
           required: [true, "Provide the exerciseId"],
         },
 
-        bodyPart: {
-          type: String,
-        },
-
-        equipment: {
-          type: String,
-        },
-
-        name: {
-          type: String,
-        },
-
-        target: {
-          type: String,
-        },
-
         time: {
           type: Number,
+          min: 1,
+
           required: [true, "Provide the total time of the workout"],
         },
 
         burnedCalories: {
           type: Number,
+          min: 1,
           required: [true, "Provide the total quantity of burned calories"],
         },
       },

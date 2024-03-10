@@ -9,7 +9,7 @@ const deleteDoneExercise = async (req, res) => {
   const { date } = req.query;
 
   if (!date) {
-    throw HttpError(400, "Provide date in dd/mm/yyyy format");
+    throw HttpError(400, "Provide date in dd/mm/YYYY format");
   }
 
   const foundedDiary = await ExerciseDiary.findOne({
