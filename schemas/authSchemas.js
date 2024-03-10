@@ -1,11 +1,5 @@
 const Joi = require("joi");
-
-const Regexps = { EMAIL: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/ };
-const Enums = {
-  BLOOD: [1, 2, 3, 4],
-  SEX: ["male", "female"],
-  LEVEL_ACTIVITY: [1, 2, 3, 4, 5],
-};
+const { Regexps, Enums } = require("../config");
 
 const registerSchema = Joi.object({
   name: Joi.string().min(2).required(),

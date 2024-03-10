@@ -23,22 +23,6 @@ const ExerciseDiary = new Schema(
           required: [true, "Provide the exerciseId"],
         },
 
-        bodyPart: {
-          type: String,
-        },
-
-        equipment: {
-          type: String,
-        },
-
-        name: {
-          type: String,
-        },
-
-        target: {
-          type: String,
-        },
-
         time: {
           type: Number,
           required: [true, "Provide the total time of the workout"],
