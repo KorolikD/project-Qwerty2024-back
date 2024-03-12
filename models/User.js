@@ -44,17 +44,17 @@ const userSchema = new Schema(
       min: 35,
     },
     birthday: {
-      type: Date,
+      type: String, // змінив з Date на String
       default: null,
-      validate: {
-        validator: function (value) {
-          const birthdate = new Date(value);
-          const maxDate = new Date();
-          maxDate.setFullYear(maxDate.getFullYear() - 18);
-          return birthdate <= maxDate;
-        },
-        message: (props) => `${props.value} is not at least 18 years ago`,
-      },
+      // validate: {
+      //   validator: function (value) {
+      //     const birthdate = new Date(value);
+      //     const maxDate = new Date();
+      //     maxDate.setFullYear(maxDate.getFullYear() - 18);
+      //     return birthdate <= maxDate;
+      //   },
+      //   message: (props) => `${props.value} is not at least 18 years ago`,
+      // },
     },
     blood: {
       type: Number,
