@@ -947,7 +947,7 @@
           "birthday": {
             "type": "string",
             "description": "User's birthday",
-            "example": "1995-05-08T21:00:00.000Z"
+            "example": "05/09/1995"
           },
           "blood": {
             "type": "integer",
@@ -989,7 +989,7 @@
           "height": 170,
           "currentWeight": 80,
           "desiredWeight": 70,
-          "birthday": "1995-05-08T21:00:00.000Z",
+          "birthday": "05/09/1995",
           "blood": 4,
           "sex": "male",
           "levelActivity": 5,
@@ -1088,7 +1088,7 @@
               "birthday": {
                 "type": "string",
                 "description": "User's birthday",
-                "example": "1995-05-08T21:00:00.000Z"
+                "example": "05/09/1995"
               },
               "blood": {
                 "type": "integer",
@@ -1133,7 +1133,7 @@
             "height": 170,
             "currentWeight": 80,
             "desiredWeight": 70,
-            "birthday": "1995-05-08T21:00:00.000Z",
+            "birthday": "05/09/1995",
             "blood": 4,
             "sex": "male",
             "levelActivity": 5,
@@ -1185,7 +1185,7 @@
           "birthday": {
             "type": "string",
             "description": "User's birthday",
-            "example": "1995-05-08T21:00:00.000Z"
+            "example": "05/09/1995"
           },
           "blood": {
             "type": "integer",
@@ -1227,7 +1227,7 @@
           "height": 170,
           "currentWeight": 80,
           "desiredWeight": 70,
-          "birthday": "1995-05-08T21:00:00.000Z",
+          "birthday": "05/09/1995",
           "blood": 4,
           "sex": "male",
           "levelActivity": 5,
