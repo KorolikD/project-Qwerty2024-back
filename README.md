@@ -1,4 +1,4 @@
-[UA](https://github.com/KorolikD/project-Qwerty2024-back/blob/main/README.md)
+[UA](https://github.com/KorolikD/project-Qwerty2024-back/blob/main/README.ua.md)
 
 # PowerPulse <img align="center" width="32" height="32" src="https://raw.githubusercontent.com/KorolikD/project-Qwerty2024-front/main/public/favicon.ico">
 
