@@ -17,7 +17,7 @@ const addDoneExerciseSchema = Joi.object({
     "string.pattern.base":
       "{{#label}} with value {:[.]} fails to match the required pattern: 01/01/2024",
   }),
-  time: Joi.number().min(1).required(),
+  time: Joi.number().min(0.1666666666666667).required(),
   burnedCalories: Joi.number().min(1).required(),
 });
 
