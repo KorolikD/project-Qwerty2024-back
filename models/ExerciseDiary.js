@@ -25,7 +25,7 @@ const ExerciseDiary = new Schema(
 
         time: {
           type: Number,
-          min: 1,
+          min: 0.1666666666666667,
 
           required: [true, "Provide the total time of the workout"],
         },
