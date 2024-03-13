@@ -1,12 +1,19 @@
 const { User } = require("../../models");
 const { levelActivities } = require("../../data");
-const { getUserAge } = require("../../helpers");
+const { getUserAge, HttpError } = require("../../helpers");
 
 const updateUser = async (req, res) => {
   const { _id } = req.user;
   const { currentWeight, height, birthday, levelActivity, sex } = req.body;
 
   const age = getUserAge(birthday);
+
+  if (age < 18) {
+    throw HttpError(
+      400,
+      `Validation failed: birthday: ${birthday} is not at least 18 years ago`
+    );
+  }
 
   const correction = sex === "male" ? 5 : -161;
   const bmr = Math.round(

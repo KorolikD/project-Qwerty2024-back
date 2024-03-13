@@ -31,11 +31,16 @@ const updateSchema = Joi.object({
   height: Joi.number().min(150).disallow(null).required(),
   currentWeight: Joi.number().min(35).disallow(null).required(),
   desiredWeight: Joi.number().min(35).disallow(null).required(),
-  birthday: Joi.date()
-    .max("now")
-    .max(new Date(new Date().setFullYear(new Date().getFullYear() - 18)))
-    .disallow(null)
-    .required(),
+
+  birthday: Joi.string().pattern(Regexps.DATE).required().messages({
+    "string.pattern.base":
+      "{{#label}} with value {:[.]} fails to match the required pattern: 01/01/2024",
+  }),
+  // birthday: Joi.date()
+  //   .max("now")
+  //   .max(new Date(new Date().setFullYear(new Date().getFullYear() - 18)))
+  //   .disallow(null)
+  //   .required(),
   blood: Joi.number()
     .equal(...Enums.BLOOD)
     .disallow(null)
