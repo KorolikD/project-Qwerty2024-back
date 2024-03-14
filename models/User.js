@@ -26,7 +26,7 @@ const userSchema = new Schema(
     avatarURL: {
       type: String,
       default:
-        "https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg",
+        "https://res.cloudinary.com/powerpulse/image/upload/v1710408936/no-user-img_dokkaa.png",
     },
     height: {
       type: Number,
